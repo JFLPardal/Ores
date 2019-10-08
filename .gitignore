@@ -33,6 +33,8 @@
 
 # directories
 *.vs
+bin
+bin-intermediate
 
 # files
 *.user
