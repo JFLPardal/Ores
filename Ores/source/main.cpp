@@ -1,6 +1,4 @@
-#include <SDL.h>
-#include <cstdio>
-#include <memory>
+#include "pch.h"
 
 #include "Game.h"
 #include "Constants.h"
