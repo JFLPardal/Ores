@@ -10,6 +10,9 @@ namespace Consts
 	extern const int WINDOW_HEIGHT;
 	extern const int WINDOW_WIDTH;
 	extern const char* WINDOW_NAME;
+
+	//sprites
+	extern const char* imagePath;
 }
 
 

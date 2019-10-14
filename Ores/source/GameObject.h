@@ -14,7 +14,7 @@ public:
 	void Draw() const;
 	void Update();
 	inline uint GetId() const { return m_id; }
-private:
+protected:
 	static uint m_nextId;
 	uint m_id;
 	uPtr<ISprite> m_sprite;

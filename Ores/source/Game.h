@@ -1,9 +1,13 @@
 #pragma once
-#include "pch.h" // <memory> and <SDL.h> TODO move the pch.h to .cpp
 #include "Aliases.h"
 #include "GameObject.h"
+#include "TextureManager.h"
 
-class TextureManager;
+struct SDL_Window;
+struct SDL_Texture;
+
+void SDL_DestroyWindow(SDL_Window*);
+void SDL_DestroyTexture(SDL_Texture*);
 
 class Game
 {
@@ -15,16 +19,15 @@ public:
 	void Draw();
 	void ProcessEvents();
 	void Clean();
+
+	auto GetTextureManager() { return m_textureManager.get(); }
 private:
-	void Init();
-	void CreateRenderer();
-	void LoadTexture(const char* spritePath);
+	void InitGame();
+	void InitGameObjects();
 private:
 	bool m_isRunning = true;
-	std::unique_ptr<GameObject> m_go; // TODO change all these to uPtr
-	TextureManager* m_textureManager;
-	//uPtr<TextureManager> m_textureManager;
+	uPtr<TextureManager> m_textureManager;
+	uPtr<GameObject> m_go;
 	std::unique_ptr<SDL_Window, decltype(&SDL_DestroyWindow)> m_window;
-	std::unique_ptr<SDL_Texture, decltype(&SDL_DestroyTexture)> m_textureToDelete;
 };
 

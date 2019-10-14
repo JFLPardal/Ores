@@ -13,7 +13,7 @@ GameObject::GameObject()
 
 void GameObject::Draw() const
 {
-	// ISprite.Draw();
+	m_sprite->Draw();
 }
 
 void GameObject::Update()

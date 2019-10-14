@@ -1,19 +1,18 @@
+#include "pch.h"
 #include "Game.h"
 
-#include "TextureManager.h"
 #include "Constants.h"
-#include "GameObject.h"
+#include "Brick.h"
 
 Game::Game()
-	:m_textureManager(nullptr), m_window(nullptr, SDL_DestroyWindow),
-	m_textureToDelete(nullptr, SDL_DestroyTexture)
+	:m_window(nullptr, SDL_DestroyWindow)
 {
-	Init();
-	//m_textureManager = std::make_unique<TextureManager>(m_window.get());
-	m_textureManager = new TextureManager(m_window.get());
+	InitGame();
+	m_textureManager = std::make_unique<TextureManager>(m_window.get());
+	InitGameObjects();
 }
 
-void Game::Init()
+void Game::InitGame()
 {
 	if (SDL_Init(SDL_INIT_VIDEO) != -1)
 	{
@@ -24,12 +23,10 @@ void Game::Init()
 	{
 		printf("%s", SDL_GetError());
 	}
-	// texture loading 
-	const char* imagePath = "../Ores/assets/sprites/paddle.png";
-	//LoadTexture(imagePath);
-
-	// create game object
-	m_go = std::make_unique<GameObject>();
+}
+void Game::InitGameObjects()
+{
+	m_go = std::make_unique<Brick>();
 }
 
 void Game::Draw()
