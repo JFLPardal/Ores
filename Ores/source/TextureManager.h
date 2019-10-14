@@ -1,10 +1,17 @@
 #pragma once
+#include "Enums.h"
+#include <map>
 
 struct SDL_Window;
 struct SDL_Texture;
 struct SDL_Renderer;
+struct SDL_Surface;
+
+class Brick;
 
 void SDL_DestroyTexture(SDL_Texture*);
+void SDL_DestroyRenderer(SDL_Renderer*);
+void SDL_FreeSurface(SDL_Surface*);
 
 class TextureManager
 {
@@ -14,18 +21,15 @@ public:
 	
 	void ClearRender() const;
 	void PresentRender()const;
-	static void Draw(SDL_Texture* spriteToDraw);
-	
-	void LoadTexture(const char* texturePath);
-	static SDL_Texture* GetSprite(std::string& spritePath);
-	void ApplyTexture();
+	static void Draw(const Brick* objectToDraw);
 
-	auto GetRenderer() { return m_renderer.get(); }
+	SDL_Renderer* GetRenderer() { return m_renderer.get(); }
 private:
 	void CreateRenderer(SDL_Window* window);
-	void AddSpriteToMapOfSprites(const char* texturePath,
-	                             std::unique_ptr<SDL_Surface, void(*)(SDL_Surface* surface)> m_surface);
+	void LoadTexture(const char* texturePath, BrickColor color);
+	void AddSpriteToMapOfSprites(const BrickColor color, std::unique_ptr<SDL_Surface, decltype(&SDL_FreeSurface)> surface);
 private:
-	static std::map<std::string, std::unique_ptr<SDL_Texture, decltype(&SDL_DestroyTexture)>> m_filePathToTexture;
+	static std::map<BrickColor, std::shared_ptr<SDL_Texture>> m_BrickColorToTexture;
 	static std::unique_ptr<SDL_Renderer, decltype(&SDL_DestroyRenderer)> m_renderer;
+	static SDL_Rect m_rect;
 };

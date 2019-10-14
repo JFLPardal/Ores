@@ -1,15 +1,18 @@
 #include "pch.h"
-#include "TextureManager.h"
-#include "Constants.h"
 
+#include "TextureManager.h"
+#include "Enums.h"
+#include "Constants.h"
+#include "Brick.h"
+
+std::map<BrickColor, std::shared_ptr<SDL_Texture>> TextureManager::m_BrickColorToTexture;
 std::unique_ptr<SDL_Renderer, decltype(&SDL_DestroyRenderer)> TextureManager::m_renderer{ nullptr, SDL_DestroyRenderer };
-std::map<std::string, std::unique_ptr<SDL_Texture, decltype(&SDL_DestroyTexture)>> TextureManager::m_filePathToTexture{};
+SDL_Rect TextureManager::m_rect;
 
 TextureManager::TextureManager(SDL_Window* window)
-	//:m_renderer(nullptr, SDL_DestroyRenderer)
 {
 	CreateRenderer(window);
-	LoadTexture(Consts::imagePath);
+	LoadTexture(Consts::imagePath, BrickColor::Blue);
 }
 
 void TextureManager::ClearRender() const
@@ -22,9 +25,9 @@ void TextureManager::PresentRender() const
 	SDL_RenderPresent(m_renderer.get());
 }
 
-void TextureManager::Draw(SDL_Texture* spriteToDraw)
-{
-	SDL_RenderCopy(m_renderer.get(), spriteToDraw, NULL, NULL);
+void TextureManager::Draw(const Brick* brickToDraw)
+{	
+	SDL_RenderCopy(m_renderer.get(), m_BrickColorToTexture[brickToDraw->GetColor()].get(), NULL, &brickToDraw->GetTransform().Rect());
 }
 
 void TextureManager::CreateRenderer(SDL_Window* window)
@@ -40,13 +43,13 @@ void TextureManager::CreateRenderer(SDL_Window* window)
 	}
 }
 
-void TextureManager::LoadTexture(const char* texturePath)
+void TextureManager::LoadTexture(const char* texturePath, BrickColor color)
 {
 	std::unique_ptr<SDL_Surface, decltype(&SDL_FreeSurface)> m_surface{ IMG_Load(texturePath), SDL_FreeSurface };
 	
 	if (m_surface != nullptr)
 	{
-		AddSpriteToMapOfSprites(texturePath, std::move(m_surface));
+		AddSpriteToMapOfSprites(color, std::move(m_surface));
 	}
 	else
 	{
@@ -54,28 +57,12 @@ void TextureManager::LoadTexture(const char* texturePath)
 	}
 }
 
-SDL_Texture* TextureManager::GetSprite(std::string& spritePath)	// TODO this argument is pretty bad for comparisons...
-{
-	auto entry = m_filePathToTexture.find(spritePath);
-	return entry->second.get();
-}
-
-
-void TextureManager::ApplyTexture()
-{/*
-	m_textureToDelete.reset(SDL_CreateTextureFromSurface(m_renderer.get(), m_surface.get()));
-	if (m_textureToDelete == nullptr)
-	{
-		printf("Texture %s not loaded, SDL_ERROR: %s", spritePath, SDL_GetError());
-	}*/
-}
-
-void TextureManager::AddSpriteToMapOfSprites(const char* texturePath, std::unique_ptr<SDL_Surface, decltype(&SDL_FreeSurface)> m_surface)
+void TextureManager::AddSpriteToMapOfSprites(const BrickColor color, std::unique_ptr<SDL_Surface, decltype(&SDL_FreeSurface)> m_surface)
 {
 	std::unique_ptr<SDL_Texture, decltype(&SDL_DestroyTexture)> texture
-	(SDL_CreateTextureFromSurface(m_renderer.get(), m_surface.get()),
-		SDL_DestroyTexture);
-	m_filePathToTexture.try_emplace(texturePath, std::move(texture));
+									(SDL_CreateTextureFromSurface(m_renderer.get(), m_surface.get()),
+										SDL_DestroyTexture);
+	m_BrickColorToTexture.try_emplace(color, std::move(texture));
 }
 
 TextureManager::~TextureManager()

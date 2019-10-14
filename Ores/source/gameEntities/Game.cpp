@@ -27,18 +27,21 @@ void Game::InitGame()
 void Game::InitGameObjects()
 {
 	m_go = std::make_unique<Brick>();
+	m_go2 = std::make_unique<Brick>(150, 150);
 }
 
 void Game::Draw()
 {
 	m_textureManager->ClearRender();
 	m_go->Draw();
+	m_go2->Draw();
 	m_textureManager->PresentRender();
 }
 
 void Game::Update()
 {
 	m_go->Update();
+	m_go2->Update();
 }
 
 void Game::ProcessEvents()

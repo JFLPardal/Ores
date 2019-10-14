@@ -13,5 +13,9 @@ namespace Consts
 
 	// sprites
 	const char* imagePath = "../Ores/assets/sprites/ores/blue.png";
+
+	// sprites' dimensions
+	const unsigned int BRICK_W = 64;
+	const unsigned int BRICK_H = 64;
 }
 	

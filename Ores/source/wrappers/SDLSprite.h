@@ -4,8 +4,8 @@
 struct SDL_Texture;
 void SDL_DestroyTexture(SDL_Texture* s);
 
-class SDLSprite : public ISprite
-{
+class SDLSprite //: public ISprite
+{/*
 public:
 	SDLSprite();
 	SDLSprite(std::string& spritePath);
@@ -14,5 +14,5 @@ public:
 	void Draw() const override;
 	void SetSprite(std::string spritePath) override;
 private:
-	std::unique_ptr<SDL_Texture, decltype(&SDL_DestroyTexture)> m_texture;
+	std::unique_ptr<SDL_Texture, decltype(&SDL_DestroyTexture)> m_texture;*/
 };

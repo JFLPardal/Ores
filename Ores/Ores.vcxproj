@@ -91,7 +91,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Ores\assets\sprites;$(SolutionDir)3rdPartyLibraries\SDL2.0.10\include;$(SolutionDir)3rdPartyLibraries\SDL2_image-2.0.5\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Ores\source\wrappers;$(SolutionDir)Ores\source\gameEntities;$(SolutionDir)Ores\source\sharedData;$(SolutionDir)Ores\assets\sprites;$(SolutionDir)Ores\source;$(SolutionDir)3rdPartyLibraries\SDL2.0.10\include;$(SolutionDir)3rdPartyLibraries\SDL2_image-2.0.5\include;</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SDL_MAIN_HANDLED;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
@@ -108,7 +108,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Ores\assets\sprites;$(SolutionDir)3rdPartyLibraries\SDL2.0.10\include;$(SolutionDir)3rdPartyLibraries\SDL2_image-2.0.5\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Ores\source\wrappers;$(SolutionDir)Ores\source\gameEntities;$(SolutionDir)Ores\source\sharedData;$(SolutionDir)Ores\assets\sprites;$(SolutionDir)Ores\source;$(SolutionDir)3rdPartyLibraries\SDL2.0.10\include;$(SolutionDir)3rdPartyLibraries\SDL2_image-2.0.5\include;</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SDL_MAIN_HANDLED;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
@@ -127,7 +127,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Ores\assets\sprites;$(SolutionDir)3rdPartyLibraries\SDL2.0.10\include;$(SolutionDir)3rdPartyLibraries\SDL2_image-2.0.5\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Ores\source\wrappers;$(SolutionDir)Ores\source\gameEntities;$(SolutionDir)Ores\source\sharedData;$(SolutionDir)Ores\assets\sprites;$(SolutionDir)Ores\source;$(SolutionDir)3rdPartyLibraries\SDL2.0.10\include;$(SolutionDir)3rdPartyLibraries\SDL2_image-2.0.5\include;</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SDL_MAIN_HANDLED;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
@@ -148,7 +148,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Ores\assets\sprites;$(SolutionDir)3rdPartyLibraries\SDL2.0.10\include;$(SolutionDir)3rdPartyLibraries\SDL2_image-2.0.5\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Ores\source\wrappers;$(SolutionDir)Ores\source\gameEntities;$(SolutionDir)Ores\source\sharedData;$(SolutionDir)Ores\assets\sprites;$(SolutionDir)Ores\source;$(SolutionDir)3rdPartyLibraries\SDL2.0.10\include;$(SolutionDir)3rdPartyLibraries\SDL2_image-2.0.5\include;</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SDL_MAIN_HANDLED;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
@@ -162,50 +162,52 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="source\Brick.cpp">
+    <ClCompile Include="source\gameEntities\Brick.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="source\GameObject.cpp">
+    <ClCompile Include="source\gameEntities\GameObject.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="source\pch.cpp">
+    <ClCompile Include="source\sharedData\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="source\Constants.cpp">
+    <ClCompile Include="source\sharedData\Constants.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="source\Game.cpp">
+    <ClCompile Include="source\gameEntities\Game.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="source\main.cpp" />
-    <ClCompile Include="source\SDLSprite.cpp" />
+    <ClCompile Include="source\wrappers\SDLSprite.cpp" />
     <ClCompile Include="source\TextureManager.cpp" />
+    <ClCompile Include="source\wrappers\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="source\Aliases.h" />
-    <ClInclude Include="source\Brick.h" />
-    <ClInclude Include="source\Enums.h" />
-    <ClInclude Include="source\GameObject.h" />
-    <ClInclude Include="source\ISprite.h" />
-    <ClInclude Include="source\pch.h" />
-    <ClInclude Include="source\Constants.h" />
-    <ClInclude Include="source\Game.h" />
-    <ClInclude Include="source\SDLSprite.h" />
+    <ClInclude Include="source\sharedData\Aliases.h" />
+    <ClInclude Include="source\gameEntities\Brick.h" />
+    <ClInclude Include="source\sharedData\Enums.h" />
+    <ClInclude Include="source\gameEntities\GameObject.h" />
+    <ClInclude Include="source\wrappers\ISprite.h" />
+    <ClInclude Include="source\sharedData\pch.h" />
+    <ClInclude Include="source\sharedData\Constants.h" />
+    <ClInclude Include="source\gameEntities\Game.h" />
+    <ClInclude Include="source\wrappers\Transform.h" />
+    <ClInclude Include="source\wrappers\SDLSprite.h" />
     <ClInclude Include="source\TextureManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

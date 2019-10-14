@@ -18,57 +18,63 @@
     <ClCompile Include="source\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Constants.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\pch.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\GameObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\SDLSprite.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="source\TextureManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\Brick.cpp">
+    <ClCompile Include="source\sharedData\Constants.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\sharedData\pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\wrappers\SDLSprite.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\gameEntities\Brick.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\gameEntities\Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\gameEntities\GameObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\wrappers\Transform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="source\Game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="source\Constants.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="source\pch.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="source\TextureManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="source\GameObject.h">
+    <ClInclude Include="source\sharedData\Aliases.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="source\ISprite.h">
+    <ClInclude Include="source\sharedData\Constants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="source\SDLSprite.h">
+    <ClInclude Include="source\sharedData\Enums.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="source\Aliases.h">
+    <ClInclude Include="source\sharedData\pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="source\Brick.h">
+    <ClInclude Include="source\wrappers\ISprite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="source\Enums.h">
+    <ClInclude Include="source\wrappers\SDLSprite.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\gameEntities\Brick.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\gameEntities\Game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\gameEntities\GameObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\wrappers\Transform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
