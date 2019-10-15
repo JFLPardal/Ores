@@ -27,9 +27,6 @@
     <ClCompile Include="source\sharedData\pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\wrappers\SDLSprite.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="source\gameEntities\Brick.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -57,12 +54,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="source\sharedData\pch.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="source\wrappers\ISprite.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="source\wrappers\SDLSprite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="source\gameEntities\Brick.h">

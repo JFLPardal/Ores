@@ -17,5 +17,11 @@ namespace Consts
 	// sprites' dimensions
 	const unsigned int BRICK_W = 64;
 	const unsigned int BRICK_H = 64;
+
+	// grid's dimensions
+	const unsigned int BRICKS_PER_COLUMN = 10;
+	const unsigned int NUM_MAX_COLUMNS = 10;
+	const unsigned int NUM_INITIAL_COLUMNS = 3;
+	const unsigned int INITIAL_VEC_CAPACITY = BRICKS_PER_COLUMN * NUM_INITIAL_COLUMNS;
 }
 	

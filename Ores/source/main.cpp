@@ -18,7 +18,6 @@ int main(int argc, char* argv[])
 		m_game->Draw();
 		EnforceFrameRate(frameStart);
 	}
-	m_game->Clean();
 	return 0;
 }
 

@@ -1,5 +1,4 @@
 #include "Brick.h"
-#include "SDLSprite.h"
 #include "Enums.h"
 #include "TextureManager.h"
 
