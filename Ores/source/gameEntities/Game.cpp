@@ -8,7 +8,11 @@
 Game::Game()
 	:m_window(nullptr, SDL_DestroyWindow)
 {
-	m_bricks.reserve(Consts::INITIAL_VEC_CAPACITY); // TODO change this, it will resize after the first iteration
+	m_bricks.resize(Consts::NUM_MAX_COLUMNS);
+	for(auto& column : m_bricks)
+	{
+		column.reserve(Consts::BRICKS_PER_COLUMN);
+	}
 	InitGame();
 	m_textureManager = std::make_unique<TextureManager>(m_window.get());
 	InitGameObjects();
@@ -28,25 +32,49 @@ void Game::InitGame()
 }
 void Game::InitGameObjects()
 {
-	m_bricks.emplace_back(std::make_unique<Brick>()); // construct brick on the vertex with these params (saves copies)
-	m_bricks.emplace_back(std::make_unique<Brick>(150,150));
+	InitBricks();
 }
 
-void Game::Draw()
+void Game::InitBricks()
+{
+	uint x = Consts::INITIAL_BRICK_X;
+	uint y = Consts::INITIAL_BRICK_Y;
+	uint xInc = Consts::BRICK_W;
+	uint yInc = Consts::BRICK_H;
+	
+	for(size_t column = 0; column < Consts::NUM_MAX_COLUMNS; column++)
+	{
+		for(size_t row = 0; row < Consts::BRICKS_PER_COLUMN; row++)
+		{
+			m_bricks[column].emplace_back(std::make_unique<Brick>(x, y)); // construct brick on the vertex with these params (saves copies)
+			y += yInc;
+		}
+		y = Consts::INITIAL_BRICK_Y;
+		x -= xInc;
+	}
+}
+
+void Game::Draw()	// TODO refactor for
 {
 	m_textureManager->ClearRender();
-	for(auto& brick : m_bricks)
+	for (auto& column : m_bricks)
 	{
-		brick->Draw();
+		for (auto& brick : column)
+		{
+			brick->Draw();
+		}
 	}
 	m_textureManager->PresentRender();
 }
 
-void Game::Update()
+void Game::Update() // TODO refactor for
 {
-	for (auto& brick : m_bricks)
+	for (auto& column : m_bricks)
 	{
-		brick->Update();
+		for (auto& brick : column)
+		{
+			brick->Update();
+		}
 	}
 }
 
@@ -65,7 +93,7 @@ void Game::ProcessEvents()
 			if(IsBrickOnClickedPosition(event->button.x, event->button.y))
 			{
 				// process click
-				printf("cliked on a brick %d , %d\n", m_clickedBrick.GetTransform().X(), m_clickedBrick.GetTransform().Y());
+				printf("cliked on a brick %d , %d ,%d\n", m_clickedBrick.GetTransform().X(), m_clickedBrick.GetTransform().Y(), m_clickedBrick.GetColor());
 			}
 		}
 	}
@@ -74,12 +102,15 @@ void Game::ProcessEvents()
 bool Game::IsBrickOnClickedPosition(int x, int y)
 {
 	SDL_Point positionClicked{x, y};
-	for(auto& brick : m_bricks)
+	for (auto& column : m_bricks)
 	{
-		if(SDL_PointInRect(&positionClicked, &brick->GetTransform().Rect()))
+		for (auto& brick : column)
 		{
-			m_clickedBrick = *brick;
-			return true;
+			if (SDL_PointInRect(&positionClicked, &brick->GetTransform().Rect()))
+			{
+				m_clickedBrick = *brick;
+				return true;
+			}
 		}
 	}
 	return false;
@@ -94,5 +125,3 @@ Game::~Game()
 {
 	Clean();
 }
-
-
