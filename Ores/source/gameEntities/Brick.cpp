@@ -20,7 +20,6 @@ Brick::Brick(const Brick& brick)
 	printf("copied brick");
 }
 
-
 void Brick::Draw() const
 {
 	TextureManager::Draw(this);

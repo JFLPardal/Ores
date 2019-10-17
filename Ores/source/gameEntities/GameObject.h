@@ -13,7 +13,7 @@ public:
 	virtual void Draw() const;
 	void Update();
 	uint GetId() const { return m_id; }
-	Transform GetTransform() const { return m_transform; }
+	const Transform& GetTransform() const { return m_transform; }
 	
 protected:
 	static uint m_nextId;

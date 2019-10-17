@@ -1,3 +1,4 @@
 #pragma once
 
-const enum BrickColor { Blue = 0, Green, Grey, Red, Yellow };
+enum BrickColor { Blue = 0, Green, Grey, Red, Yellow };
+enum Direction { Up = 0, Right, Down, Left };

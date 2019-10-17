@@ -30,6 +30,8 @@ namespace Consts
 	// initial brick's position
 	const unsigned int INITIAL_BRICK_X = WINDOW_WIDTH - BRICK_W;
 	const unsigned int INITIAL_BRICK_Y = WINDOW_HEIGHT * 0.5f - BRICK_H * BRICKS_PER_COLUMN * 0.5f;
-	
+
+	// directions
+	const unsigned int NUM_DIRECTIONS = 4;
 }
 	

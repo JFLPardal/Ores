@@ -4,6 +4,7 @@
 #include "Constants.h"
 #include "TextureManager.h"
 #include "Brick.h"
+#include "DirectionToVector.h"
 
 Game::Game()
 	:m_window(nullptr, SDL_DestroyWindow)
@@ -94,6 +95,8 @@ void Game::ProcessEvents()
 			{
 				// process click
 				printf("cliked on a brick %d , %d ,%d\n", m_clickedBrick.GetTransform().X(), m_clickedBrick.GetTransform().Y(), m_clickedBrick.GetColor());
+				auto indexesToDelete = FindSequenceStartingIn(m_clickedBrick);
+				printf("%d", (indexesToDelete.get())[0]);
 			}
 		}
 	}
@@ -115,6 +118,68 @@ bool Game::IsBrickOnClickedPosition(int x, int y)
 	}
 	return false;
 }
+/*
+struct Direction
+{
+	std::pair<Direction, std::pair<int, int>> direction;
+};*/
+
+uPtr<std::set<std::pair<size_t, size_t>>> Game::FindSequenceStartingIn(const Brick& brick) const
+{
+	const uint numDirections = Consts::NUM_DIRECTIONS;
+	
+	std::set<std::pair<size_t,size_t>> indicesToDelete;
+	// for each direction U,R,D,L
+	for(size_t dirToCheck = 0; dirToCheck < numDirections; dirToCheck++)
+	{
+		// find clicked brick index
+		auto clickedBrickPosition = GridPositionOfBrick(brick);
+		// check if brick in that direction is of the same type
+		auto positionToCheck = GetBrickRelativePosition(clickedBrickPosition, (Direction) dirToCheck);
+
+		// if they are the same type, add them to indicesToDelete
+		if(brick.GetColor() == m_bricks[positionToCheck.first][positionToCheck.second]->GetColor())
+		{
+			indicesToDelete.insert(positionToCheck);
+		}
+	}	
+	return  std::make_unique<std::set<std::pair<size_t, size_t>>>(indicesToDelete);
+}
+
+std::pair<int, int> Game::GridPositionOfBrick(const Brick& brick) const
+{
+	const int gridInitialX = Consts::INITIAL_BRICK_X;
+	const int gridInitialY = Consts::INITIAL_BRICK_Y;
+	const int brickW = Consts::BRICK_W;
+	const int brickH = Consts::BRICK_H;
+	
+	for(size_t x = 1; x < m_bricks.size(); x++)
+	{
+		if(brick.GetTransform().X() > gridInitialX - brickW * x)
+		{
+			for (size_t y = 1; x < m_bricks.size(); y++)
+			{
+				if (brick.GetTransform().Y() < gridInitialY + brickH * y)
+				{
+					return std::pair<int,int>{--x,--y};
+				}
+			}
+		}
+	}
+	return std::pair<int, int>{-1, -1};
+}
+
+
+std::pair<int, int> Game::GetBrickRelativePosition(std::pair<uint, uint> brickPositionInGrid, Direction direction) const
+{
+	std::pair<int, int> relativePos;
+	auto dirToVector = DirectionToVector::GetInstance();	// usar como member variable
+	relativePos.first = brickPositionInGrid.first + dirToVector->GetXIncrement(direction);
+	relativePos.second = brickPositionInGrid.second + dirToVector->GetYIncrement(direction);
+
+	return relativePos;
+}
+
 
 void Game::Clean()
 {

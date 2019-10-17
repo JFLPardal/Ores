@@ -39,6 +39,9 @@
     <ClCompile Include="source\wrappers\Transform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\sharedData\DirectionToVector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\TextureManager.h">
@@ -66,6 +69,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="source\wrappers\Transform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\sharedData\DirectionToVector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
