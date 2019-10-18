@@ -10,6 +10,7 @@ Game::Game()
 	:m_window(nullptr, SDL_DestroyWindow)
 {
 	m_bricks.resize(Consts::NUM_MAX_COLUMNS);
+	m_currentNumColumns = m_bricks.size();
 	for(auto& column : m_bricks)
 	{
 		column.reserve(Consts::BRICKS_PER_COLUMN);
@@ -95,8 +96,14 @@ void Game::ProcessEvents()
 			{
 				// process click
 				printf("cliked on a brick %d , %d ,%d\n", m_clickedBrick.GetTransform().X(), m_clickedBrick.GetTransform().Y(), m_clickedBrick.GetColor());
-				auto indexesToDelete = FindSequenceStartingIn(m_clickedBrick);
-				printf("%d", (indexesToDelete.get())[0]);
+				std::set<std::pair<uint, uint>> indexesToDelete;
+				FindSequenceStartingIn(m_clickedBrick, indexesToDelete);
+				printf("Indexes to delete:\n");
+				
+				for(auto& indexToDelete : indexesToDelete)
+				{
+					printf("(%d,%d)\n", indexToDelete.first, indexToDelete.second);
+				}
 			}
 		}
 	}
@@ -118,32 +125,32 @@ bool Game::IsBrickOnClickedPosition(int x, int y)
 	}
 	return false;
 }
-/*
-struct Direction
-{
-	std::pair<Direction, std::pair<int, int>> direction;
-};*/
 
-uPtr<std::set<std::pair<size_t, size_t>>> Game::FindSequenceStartingIn(const Brick& brick) const
+//uPtr<std::set<std::pair<size_t, size_t>>> Game::FindSequenceStartingIn(const Brick& brick) const
+void Game::FindSequenceStartingIn(const Brick& brick, std::set<std::pair<uint, uint>>& indexesToDelete) const
 {
 	const uint numDirections = Consts::NUM_DIRECTIONS;
 	
-	std::set<std::pair<size_t,size_t>> indicesToDelete;
+	// find clicked brick index
+	auto clickedBrickPosition = GridPositionOfBrick(brick);
+	indexesToDelete.insert(clickedBrickPosition);
 	// for each direction U,R,D,L
-	for(size_t dirToCheck = 0; dirToCheck < numDirections; dirToCheck++)
+	for(auto& index : indexesToDelete)
 	{
-		// find clicked brick index
-		auto clickedBrickPosition = GridPositionOfBrick(brick);
-		// check if brick in that direction is of the same type
-		auto positionToCheck = GetBrickRelativePosition(clickedBrickPosition, (Direction) dirToCheck);
-
-		// if they are the same type, add them to indicesToDelete
-		if(brick.GetColor() == m_bricks[positionToCheck.first][positionToCheck.second]->GetColor())
+		for(size_t dirToCheck = 0; dirToCheck < numDirections; dirToCheck++)
 		{
-			indicesToDelete.insert(positionToCheck);
+			// check if brick in that direction is of the same type
+			auto positionToCheck = GetBrickRelativePosition(index, (Direction) dirToCheck);
+			if(IsPositionValid(positionToCheck))
+			{
+				// if they are the same type, add them to indicesToDelete
+				if(brick.GetColor() == m_bricks[positionToCheck.first][positionToCheck.second]->GetColor())
+				{
+					indexesToDelete.insert(positionToCheck);
+				}
+			}
 		}
-	}	
-	return  std::make_unique<std::set<std::pair<size_t, size_t>>>(indicesToDelete);
+	}
 }
 
 std::pair<int, int> Game::GridPositionOfBrick(const Brick& brick) const
@@ -169,7 +176,6 @@ std::pair<int, int> Game::GridPositionOfBrick(const Brick& brick) const
 	return std::pair<int, int>{-1, -1};
 }
 
-
 std::pair<int, int> Game::GetBrickRelativePosition(std::pair<uint, uint> brickPositionInGrid, Direction direction) const
 {
 	std::pair<int, int> relativePos;
@@ -178,6 +184,15 @@ std::pair<int, int> Game::GetBrickRelativePosition(std::pair<uint, uint> brickPo
 	relativePos.second = brickPositionInGrid.second + dirToVector->GetYIncrement(direction);
 
 	return relativePos;
+}
+
+bool Game::IsPositionValid(std::pair<int, int> position) const
+{
+	if(position.first >= 0 && position.first < m_currentNumColumns && position.second >= 0 && position.second < Consts::BRICKS_PER_COLUMN)
+	{
+		return true;
+	}
+	return false;
 }
 
 

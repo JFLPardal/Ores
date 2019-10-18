@@ -27,13 +27,16 @@ private:
 	std::pair<int, int> GetBrickRelativePosition(std::pair<uint, uint> brickIndexInGrid, Direction direction)const;
 	std::pair<int, int> GridPositionOfBrick(const Brick& brick) const;
 
-	uPtr<std::set<std::pair<size_t, size_t>>> FindSequenceStartingIn(const Brick& brick) const;
+	//uPtr<std::set<std::pair<size_t, size_t>>> FindSequenceStartingIn(const Brick& brick) const;
+	void FindSequenceStartingIn(const Brick& brick, std::set<std::pair<uint, uint>>& indexesToDelete) const;
 	
 	bool IsBrickOnClickedPosition(int x, int y);	// TODO make this more efficient
+	bool IsPositionValid(std::pair<int, int> position) const;
 private:
 	bool m_isRunning = true;
 	uPtr<TextureManager> m_textureManager;
 	Brick m_clickedBrick;
+	uint m_currentNumColumns;
 	std::vector<std::vector<uPtr<Brick>>> m_bricks;
 	std::unique_ptr<SDL_Window, decltype(&SDL_DestroyWindow)> m_window;
 };
