@@ -12,7 +12,9 @@ namespace Consts
 	const char* WINDOW_NAME = "Ores by Joao Pardal";
 
 	// sprites
-	const char* imagePath = "../Ores/assets/sprites/ores/blue.png";
+	const char* blueOre = "../Ores/assets/sprites/ores/blue_square.png";
+	const char* redOre = "../Ores/assets/sprites/ores/red_square.png";
+	const char* greenOre = "../Ores/assets/sprites/ores/green_square.png";
 
 	//
 	const unsigned int NUM_DIF_BRICKS = 5;

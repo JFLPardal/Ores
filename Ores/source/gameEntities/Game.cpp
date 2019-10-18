@@ -130,26 +130,33 @@ bool Game::IsBrickOnClickedPosition(int x, int y)
 void Game::FindSequenceStartingIn(const Brick& brick, std::set<std::pair<uint, uint>>& indexesToDelete) const
 {
 	const uint numDirections = Consts::NUM_DIRECTIONS;
-	
+	std::queue<std::pair<uint, uint>> queue;
 	// find clicked brick index
 	auto clickedBrickPosition = GridPositionOfBrick(brick);
 	indexesToDelete.insert(clickedBrickPosition);
+	queue.push(clickedBrickPosition);
 	// for each direction U,R,D,L
-	for(auto& index : indexesToDelete)
+	while(!queue.empty())
 	{
+		auto currentPosition = queue.front();
 		for(size_t dirToCheck = 0; dirToCheck < numDirections; dirToCheck++)
 		{
 			// check if brick in that direction is of the same type
-			auto positionToCheck = GetBrickRelativePosition(index, (Direction) dirToCheck);
+			auto positionToCheck = GetBrickRelativePosition(currentPosition, (Direction) dirToCheck);
 			if(IsPositionValid(positionToCheck))
 			{
 				// if they are the same type, add them to indicesToDelete
 				if(brick.GetColor() == m_bricks[positionToCheck.first][positionToCheck.second]->GetColor())
 				{
-					indexesToDelete.insert(positionToCheck);
+					if (indexesToDelete.find(positionToCheck) == indexesToDelete.end())
+					{
+						indexesToDelete.insert(positionToCheck);
+						queue.push(positionToCheck);
+					}
 				}
 			}
 		}
+		queue.pop();
 	}
 }
 
@@ -159,12 +166,13 @@ std::pair<int, int> Game::GridPositionOfBrick(const Brick& brick) const
 	const int gridInitialY = Consts::INITIAL_BRICK_Y;
 	const int brickW = Consts::BRICK_W;
 	const int brickH = Consts::BRICK_H;
+	const int bricksPerColumn = Consts::BRICKS_PER_COLUMN;
 	
-	for(size_t x = 1; x < m_bricks.size(); x++)
+	for(size_t x = 1; x <= m_bricks.size(); x++)
 	{
 		if(brick.GetTransform().X() > gridInitialX - brickW * x)
 		{
-			for (size_t y = 1; x < m_bricks.size(); y++)
+			for (size_t y = 1; x < bricksPerColumn; y++)
 			{
 				if (brick.GetTransform().Y() < gridInitialY + brickH * y)
 				{

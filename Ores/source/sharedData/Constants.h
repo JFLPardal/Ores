@@ -12,7 +12,9 @@ namespace Consts
 	extern const char* WINDOW_NAME;
 	
 	// sprites' path
-	extern const char* imagePath;
+	extern const char* blueOre;
+	extern const char* redOre;
+	extern const char* greenOre;
 
 	// 
 	extern const unsigned int NUM_DIF_BRICKS;

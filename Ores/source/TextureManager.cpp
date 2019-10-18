@@ -12,7 +12,9 @@ SDL_Rect TextureManager::m_rect;
 TextureManager::TextureManager(SDL_Window* window)
 {
 	CreateRenderer(window);
-	LoadTexture(Consts::imagePath, BrickColor::Blue);
+	LoadTexture(Consts::blueOre, BrickColor::Blue);
+	LoadTexture(Consts::redOre, BrickColor::Red);
+	LoadTexture(Consts::greenOre, BrickColor::Green);
 }
 
 void TextureManager::ClearRender() const

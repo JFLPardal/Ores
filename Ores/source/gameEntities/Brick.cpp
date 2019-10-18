@@ -10,7 +10,7 @@ Brick::Brick()
 }
 
 Brick::Brick(int x, int y)
-	:GameObject(x,y), m_color(BrickColor(rand() % Consts::NUM_DIF_BRICKS))
+	:GameObject(x,y), m_color(BrickColor(rand() % 3))
 {
 	printf("brick created\n");
 }
