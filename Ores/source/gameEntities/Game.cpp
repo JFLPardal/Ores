@@ -38,21 +38,13 @@ void Game::InitGameObjects()
 }
 
 void Game::InitBricks()
-{
-	uint x = Consts::INITIAL_BRICK_X;
-	uint y = Consts::INITIAL_BRICK_Y;
-	uint xInc = Consts::BRICK_W;
-	uint yInc = Consts::BRICK_H;
-	
+{	
 	for(size_t column = 0; column < Consts::NUM_MAX_COLUMNS; column++)
 	{
 		for(size_t row = 0; row < Consts::BRICKS_PER_COLUMN; row++)
 		{
-			m_bricks[column].emplace_back(std::make_unique<Brick>(x, y)); // construct brick on the vertex with these params (saves copies)
-			y += yInc;
+			m_bricks[column].emplace_back(column, row); // construct brick on the vertex with these params (saves copies)
 		}
-		y = Consts::INITIAL_BRICK_Y;
-		x -= xInc;
 	}
 }
 
@@ -63,7 +55,7 @@ void Game::Draw()	// TODO refactor for
 	{
 		for (auto& brick : column)
 		{
-			brick->Draw();
+			brick.Draw();
 		}
 	}
 	m_textureManager->PresentRender();
@@ -75,7 +67,7 @@ void Game::Update() // TODO refactor for
 	{
 		for (auto& brick : column)
 		{
-			brick->Update();
+			brick.Update();
 		}
 	}
 }
@@ -98,11 +90,10 @@ void Game::ProcessEvents()
 				printf("cliked on a brick %d , %d ,%d\n", m_clickedBrick.GetTransform().X(), m_clickedBrick.GetTransform().Y(), m_clickedBrick.GetColor());
 				std::set<std::pair<uint, uint>> indexesToDelete;
 				FindSequenceStartingIn(m_clickedBrick, indexesToDelete);
-				printf("Indexes to delete:\n");
-				
-				for(auto& indexToDelete : indexesToDelete)
+				if(indexesToDelete.size() > 1)
 				{
-					printf("(%d,%d)\n", indexToDelete.first, indexToDelete.second);
+					DeleteSequence(indexesToDelete);
+					UpdatePositionInGrid();
 				}
 			}
 		}
@@ -116,9 +107,9 @@ bool Game::IsBrickOnClickedPosition(int x, int y)
 	{
 		for (auto& brick : column)
 		{
-			if (SDL_PointInRect(&positionClicked, &brick->GetTransform().Rect()))
+			if (SDL_PointInRect(&positionClicked, &brick.GetTransform().Rect()))
 			{
-				m_clickedBrick = *brick;
+				m_clickedBrick = brick;
 				return true;
 			}
 		}
@@ -126,7 +117,6 @@ bool Game::IsBrickOnClickedPosition(int x, int y)
 	return false;
 }
 
-//uPtr<std::set<std::pair<size_t, size_t>>> Game::FindSequenceStartingIn(const Brick& brick) const
 void Game::FindSequenceStartingIn(const Brick& brick, std::set<std::pair<uint, uint>>& indexesToDelete) const
 {
 	const uint numDirections = Consts::NUM_DIRECTIONS;
@@ -146,7 +136,7 @@ void Game::FindSequenceStartingIn(const Brick& brick, std::set<std::pair<uint, u
 			if(IsPositionValid(positionToCheck))
 			{
 				// if they are the same type, add them to indicesToDelete
-				if(brick.GetColor() == m_bricks[positionToCheck.first][positionToCheck.second]->GetColor())
+				if(brick.GetColor() == m_bricks[positionToCheck.first][positionToCheck.second].GetColor())
 				{
 					if (indexesToDelete.find(positionToCheck) == indexesToDelete.end())
 					{
@@ -158,7 +148,40 @@ void Game::FindSequenceStartingIn(const Brick& brick, std::set<std::pair<uint, u
 		}
 		queue.pop();
 	}
+	printf("Indexes to delete:\n");
+
+	for (auto& indexToDelete : indexesToDelete)
+	{
+		printf("(%d,%d)\n", indexToDelete.first, indexToDelete.second);
+	}
 }
+
+// Due to the way std::vector works this function will automatically update the indexes
+// of each column when a brick is destroyed but it won't update the screen position of the bricks,
+// this screen position update is done in void Game::UpdatePositionInGrid()
+void Game::DeleteSequence(const std::set<std::pair<uint, uint>>& indexesToDelete)
+{
+	std::set<std::pair<uint, uint>>::reverse_iterator rit;
+	for(rit = indexesToDelete.rbegin(); rit != indexesToDelete.rend(); ++rit)
+	{
+		auto posToDelete = m_bricks[rit->first].begin() + rit->second;
+		m_bricks[rit->first].erase(posToDelete);
+	}
+}
+
+void Game::UpdatePositionInGrid()
+{
+	//for (size_t x = m_bricks.size(); x >= 0; x--)
+	for (size_t x = 0; x < m_bricks.size(); x++)
+	{
+		for (size_t y = 0; y < m_bricks[x].size(); y++)
+		{
+			m_bricks[x][y].m_gridPosition.first = x;
+			m_bricks[x][y].m_gridPosition.second = y;
+		}
+	}
+}
+
 
 std::pair<int, int> Game::GridPositionOfBrick(const Brick& brick) const
 {
@@ -198,11 +221,13 @@ bool Game::IsPositionValid(std::pair<int, int> position) const
 {
 	if(position.first >= 0 && position.first < m_currentNumColumns && position.second >= 0 && position.second < Consts::BRICKS_PER_COLUMN)
 	{
+		if(m_bricks[position.first].size() > position.second)
+		{
 		return true;
+		}
 	}
 	return false;
 }
-
 
 void Game::Clean()
 {

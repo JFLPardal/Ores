@@ -11,7 +11,7 @@ public:
 	virtual ~GameObject();
 
 	virtual void Draw() const;
-	void Update();
+	virtual void Update();
 	uint GetId() const { return m_id; }
 	const Transform& GetTransform() const { return m_transform; }
 	

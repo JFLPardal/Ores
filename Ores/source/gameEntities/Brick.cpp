@@ -10,7 +10,10 @@ Brick::Brick()
 }
 
 Brick::Brick(int x, int y)
-	:GameObject(x,y), m_color(BrickColor(rand() % 3))
+	:GameObject(Consts::INITIAL_BRICK_X - x * Consts::BRICK_W, 
+		Consts::INITIAL_BRICK_Y + y * Consts::BRICK_H),
+		m_color(BrickColor(rand() % 3)),
+		m_gridPosition(x,y)
 {
 	printf("brick created\n");
 }
@@ -18,6 +21,11 @@ Brick::Brick(int x, int y)
 Brick::Brick(const Brick& brick)
 {
 	printf("copied brick");
+}
+
+void Brick::Update()
+{
+	m_transform.UpdatePosition(m_gridPosition.first, m_gridPosition.second);
 }
 
 void Brick::Draw() const
