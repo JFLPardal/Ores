@@ -7,9 +7,9 @@ std::unique_ptr<DirectionToVector> DirectionToVector::m_instance{ nullptr };// s
 
 DirectionToVector::DirectionToVector()
 {
-	m_directionToVector.emplace(Direction::Up,    std::pair<int,int>(0, -1));	// Y increases from top to bottom
+	m_directionToVector.emplace(Direction::Up,    std::pair<int,int>(0, 1));	
 	m_directionToVector.emplace(Direction::Right, std::pair<int,int>(-1, 0));	// X increases from right to left
-	m_directionToVector.emplace(Direction::Down,  std::pair<int,int>(0, 1));
+	m_directionToVector.emplace(Direction::Down,  std::pair<int,int>(0, -1));
 	m_directionToVector.emplace(Direction::Left,  std::pair<int,int>(1, 0));
 }
 

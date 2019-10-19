@@ -196,8 +196,6 @@ void Game::DeleteEmptyColumns()
 	}
 }
 
-
-
 std::pair<int, int> Game::GridPositionOfBrick(const Brick& brick) const
 {
 	const int gridInitialX = Consts::INITIAL_BRICK_X;
@@ -212,7 +210,7 @@ std::pair<int, int> Game::GridPositionOfBrick(const Brick& brick) const
 		{
 			for (size_t y = 1; x < bricksPerColumn; y++)
 			{
-				if (brick.GetTransform().Y() < gridInitialY + brickH * y)
+				if (brick.GetTransform().Y() > gridInitialY - brickH * y)
 				{
 					return std::pair<int,int>{--x,--y};
 				}

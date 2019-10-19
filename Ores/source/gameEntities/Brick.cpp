@@ -11,7 +11,7 @@ Brick::Brick()
 
 Brick::Brick(int x, int y)
 	:GameObject(Consts::INITIAL_BRICK_X - x * Consts::BRICK_W, 
-		Consts::INITIAL_BRICK_Y + y * Consts::BRICK_H),
+		Consts::INITIAL_BRICK_Y - y * Consts::BRICK_H),
 		m_color(BrickColor(rand() % 3)),
 		m_gridPosition(x,y)
 {

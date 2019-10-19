@@ -23,7 +23,7 @@ Transform::Transform(const Transform& transform)
 void Transform::UpdatePosition(int x, int y)
 {
 	SetX(Consts::INITIAL_BRICK_X - x * Consts::BRICK_W);
-	SetY(Consts::INITIAL_BRICK_Y + y * Consts::BRICK_H);
+	SetY(Consts::INITIAL_BRICK_Y - y * Consts::BRICK_H);
 }
 
 void Transform::SetRect(int x, int y, uint w, uint h)
