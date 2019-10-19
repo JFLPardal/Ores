@@ -34,6 +34,7 @@ private:
 	bool IsBrickOnClickedPosition(int x, int y);	// TODO make this more efficient
 	bool IsPositionValid(std::pair<int, int> position) const;
 	void UpdatePositionInGrid();
+	void DeleteEmptyColumns();
 private:
 	std::unique_ptr<SDL_Window, decltype(&SDL_DestroyWindow)> m_window;
 	bool m_isRunning = true;

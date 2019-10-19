@@ -93,6 +93,7 @@ void Game::ProcessEvents()
 				if(indexesToDelete.size() > 1)
 				{
 					DeleteSequence(indexesToDelete);
+					DeleteEmptyColumns();
 					UpdatePositionInGrid();
 				}
 			}
@@ -125,10 +126,11 @@ void Game::FindSequenceStartingIn(const Brick& brick, std::set<std::pair<uint, u
 	auto clickedBrickPosition = GridPositionOfBrick(brick);
 	indexesToDelete.insert(clickedBrickPosition);
 	queue.push(clickedBrickPosition);
-	// for each direction U,R,D,L
+
 	while(!queue.empty())
 	{
 		auto currentPosition = queue.front();
+		// for each direction U,R,D,L
 		for(size_t dirToCheck = 0; dirToCheck < numDirections; dirToCheck++)
 		{
 			// check if brick in that direction is of the same type
@@ -149,7 +151,6 @@ void Game::FindSequenceStartingIn(const Brick& brick, std::set<std::pair<uint, u
 		queue.pop();
 	}
 	printf("Indexes to delete:\n");
-
 	for (auto& indexToDelete : indexesToDelete)
 	{
 		printf("(%d,%d)\n", indexToDelete.first, indexToDelete.second);
@@ -171,7 +172,6 @@ void Game::DeleteSequence(const std::set<std::pair<uint, uint>>& indexesToDelete
 
 void Game::UpdatePositionInGrid()
 {
-	//for (size_t x = m_bricks.size(); x >= 0; x--)
 	for (size_t x = 0; x < m_bricks.size(); x++)
 	{
 		for (size_t y = 0; y < m_bricks[x].size(); y++)
@@ -181,6 +181,21 @@ void Game::UpdatePositionInGrid()
 		}
 	}
 }
+
+void Game::DeleteEmptyColumns()
+{
+	for (size_t x = 0; x < m_bricks.size(); x++)
+	{
+		if (m_bricks[x].empty())
+		{
+			auto columnToDelete = m_bricks.begin() + x;
+			m_bricks.erase(columnToDelete);
+			m_currentNumColumns--;
+			x--;
+		}
+	}
+}
+
 
 
 std::pair<int, int> Game::GridPositionOfBrick(const Brick& brick) const
