@@ -8,6 +8,7 @@ class GameObject
 public:
 	GameObject();
 	GameObject(int x, int y);
+	GameObject(int x, int y, int w, int h);
 	virtual ~GameObject();
 
 	virtual void Draw() const;

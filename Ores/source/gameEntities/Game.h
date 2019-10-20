@@ -6,6 +6,8 @@ struct SDL_Window;
 class TextureManager;
 void SDL_DestroyWindow(SDL_Window*);
 
+Uint32 PushSpawnColumnEvent(Uint32 msBetweenSpawns, void* params);
+
 class Game
 {
 public:
@@ -13,6 +15,7 @@ public:
 	~Game();
 
 	bool IsRunning() const { return m_isRunning; };
+	bool IsGameOver() const { return m_isGameOver; }
 	void Update();
 	void Draw();
 	void ProcessEvents();
@@ -20,9 +23,12 @@ public:
 
 	TextureManager* GetTextureManager() const { return m_textureManager.get(); }
 private:
+	void CreateWindow();
 	void InitGame();
+	void InitGrid();
 	void InitGameObjects();
 	void InitBricks();
+	void GameOver() { m_isGameOver = true; }
 
 	std::pair<int, int> GetBrickRelativePosition(std::pair<uint, uint> brickIndexInGrid, Direction direction)const;
 	std::pair<int, int> GridPositionOfBrick(const Brick& brick) const;
@@ -35,13 +41,19 @@ private:
 	bool IsPositionValid(std::pair<int, int> position) const;
 	void UpdatePositionInGrid();
 	void DeleteEmptyColumns();
+
+	void InitTimer();
+	void SpawnColumn();
+	void InitBrickColumn(uint columnIndex);
 private:
 	std::unique_ptr<SDL_Window, decltype(&SDL_DestroyWindow)> m_window;
 	bool m_isRunning = true;
+	bool m_isGameOver = false;
 	uPtr<TextureManager> m_textureManager;
 	Brick m_clickedBrick;
+	GameObject m_warningArea;
 	uint m_currentNumColumns;
-	//std::vector<std::vector<uPtr<Brick>>> m_bricks;
+	SDL_TimerID m_spawnNewColumnTimer;
 	std::vector<std::vector<Brick>> m_bricks;
 };
 

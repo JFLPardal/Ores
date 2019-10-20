@@ -15,6 +15,8 @@ namespace Consts
 	extern const char* blueOre;
 	extern const char* redOre;
 	extern const char* greenOre;
+	extern const char* greyOre;
+	extern const char* yellowOre;
 
 	// 
 	extern const unsigned int NUM_DIF_BRICKS;
@@ -29,12 +31,21 @@ namespace Consts
 	extern const unsigned int NUM_INITIAL_COLUMNS;
 	extern const unsigned int INITIAL_VEC_CAPACITY;
 
+	// loosing warning
+	extern const unsigned int LOSING_WARNING_X;
+	extern const unsigned int LOSING_WARNING_Y;
+	extern const unsigned int LOSING_WARNING_W;
+	extern const unsigned int LOSING_WARNING_H;
+	
 	// initial brick's position
 	extern const unsigned int INITIAL_BRICK_X;
 	extern const unsigned int INITIAL_BRICK_Y;
 
 	// directions
 	extern const unsigned int NUM_DIRECTIONS;
+
+	// delays (all in ms)
+	extern const unsigned int MS_BETWEEN_COLUMN_SPAWNS;
 }
 
 

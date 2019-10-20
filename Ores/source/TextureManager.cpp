@@ -15,6 +15,8 @@ TextureManager::TextureManager(SDL_Window* window)
 	LoadTexture(Consts::blueOre, BrickColor::Blue);
 	LoadTexture(Consts::redOre, BrickColor::Red);
 	LoadTexture(Consts::greenOre, BrickColor::Green);
+	LoadTexture(Consts::greyOre, BrickColor::Grey);
+	LoadTexture(Consts::yellowOre, BrickColor::Yellow);
 }
 
 void TextureManager::ClearRender() const
@@ -31,6 +33,12 @@ void TextureManager::Draw(const Brick* brickToDraw)
 {	
 	SDL_RenderCopy(m_renderer.get(), m_BrickColorToTexture[brickToDraw->GetColor()].get(), NULL, &brickToDraw->GetTransform().Rect());
 }
+
+void TextureManager::Draw(const GameObject* objectToDraw)
+{
+	SDL_RenderCopy(m_renderer.get(), m_BrickColorToTexture[Red].get(), NULL, &objectToDraw->GetTransform().Rect());
+}
+
 
 void TextureManager::CreateRenderer(SDL_Window* window)
 {

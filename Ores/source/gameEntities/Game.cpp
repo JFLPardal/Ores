@@ -6,23 +6,48 @@
 #include "Brick.h"
 #include "DirectionToVector.h"
 
+Uint32 PushSpawnColumnEvent(Uint32 msBetweenSpawns, void* params)	// TODO MOVE THIS SOMEWHERE ELSE
+{
+	SDL_UserEvent userEvent;
+	userEvent.type = SDL_USEREVENT;
+	userEvent.code = UserEvent::SpawnColumn;
+
+	SDL_Event event;
+	event.type = SDL_USEREVENT;
+	event.user = userEvent;
+
+	SDL_PushEvent(&event);
+	return msBetweenSpawns;
+}
+
 Game::Game()
 	:m_window(nullptr, SDL_DestroyWindow)
 {
-	m_bricks.resize(Consts::NUM_MAX_COLUMNS);
-	m_currentNumColumns = m_bricks.size();
-	for(auto& column : m_bricks)
-	{
-		column.reserve(Consts::BRICKS_PER_COLUMN);
-	}
-	InitGame();
+	CreateWindow();
 	m_textureManager = std::make_unique<TextureManager>(m_window.get());
-	InitGameObjects();
+	InitGame();
 }
 
 void Game::InitGame()
 {
-	if (SDL_Init(SDL_INIT_VIDEO) != -1)
+	InitGrid();
+	InitGameObjects();
+	InitTimer();
+}
+
+void Game::InitGrid()
+{
+	m_bricks.resize(Consts::NUM_MAX_COLUMNS);
+	m_currentNumColumns = Consts::NUM_INITIAL_COLUMNS;
+	for (auto& column : m_bricks)
+	{
+		column.reserve(Consts::BRICKS_PER_COLUMN);
+	}
+}
+
+void Game::CreateWindow()
+{
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) != -1)
 	{
 		m_window.reset(SDL_CreateWindow(Consts::WINDOW_NAME, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 
 										Consts::WINDOW_WIDTH, Consts::WINDOW_HEIGHT, SDL_WINDOW_SHOWN));
@@ -34,23 +59,37 @@ void Game::InitGame()
 }
 void Game::InitGameObjects()
 {
+	m_warningArea = GameObject(Consts::LOSING_WARNING_X, Consts::LOSING_WARNING_Y, Consts::LOSING_WARNING_W, Consts::LOSING_WARNING_H);
 	InitBricks();
 }
 
 void Game::InitBricks()
 {	
-	for(size_t column = 0; column < Consts::NUM_MAX_COLUMNS; column++)
+	for(size_t column = 0; column < Consts::NUM_INITIAL_COLUMNS; column++)
 	{
-		for(size_t row = 0; row < Consts::BRICKS_PER_COLUMN; row++)
-		{
-			m_bricks[column].emplace_back(column, row); // construct brick on the vertex with these params (saves copies)
-		}
+		InitBrickColumn(column);
 	}
+}
+
+void Game::InitBrickColumn(uint column)
+{
+	for (size_t row = 0; row < Consts::BRICKS_PER_COLUMN; row++)
+	{
+		m_bricks[column].emplace_back(column, row); // construct brick on the vertex with these params (saves copies)
+	}
+}
+
+
+void Game::InitTimer()
+{
+	int s;
+	m_spawnNewColumnTimer = SDL_AddTimer(Consts::MS_BETWEEN_COLUMN_SPAWNS, PushSpawnColumnEvent, &s);
 }
 
 void Game::Draw()	// TODO refactor for
 {
 	m_textureManager->ClearRender();
+	m_warningArea.Draw();
 	for (auto& column : m_bricks)
 	{
 		for (auto& brick : column)
@@ -97,6 +136,20 @@ void Game::ProcessEvents()
 					UpdatePositionInGrid();
 				}
 			}
+		}
+		if(event->type == SDL_USEREVENT && event->user.code == UserEvent::SpawnColumn)
+		{
+			if(m_currentNumColumns < Consts::NUM_MAX_COLUMNS)
+			{
+				SpawnColumn();
+			}
+			else
+			{
+				SDL_RemoveTimer(m_spawnNewColumnTimer);
+				m_bricks.clear();
+				InitGame();
+			}
+			UpdatePositionInGrid();
 		}
 	}
 }
@@ -184,7 +237,7 @@ void Game::UpdatePositionInGrid()
 
 void Game::DeleteEmptyColumns()
 {
-	for (size_t x = 0; x < m_bricks.size(); x++)
+	for (size_t x = 0; x < m_currentNumColumns; x++)
 	{
 		if (m_bricks[x].empty())
 		{
@@ -241,6 +294,15 @@ bool Game::IsPositionValid(std::pair<int, int> position) const
 	}
 	return false;
 }
+
+void Game::SpawnColumn()
+{
+	m_bricks.emplace(m_bricks.begin(), std::vector<Brick>{});
+	m_bricks[0].reserve(Consts::BRICKS_PER_COLUMN);
+	m_currentNumColumns++;
+	InitBrickColumn(0);
+}
+
 
 void Game::Clean()
 {
