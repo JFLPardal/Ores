@@ -14,7 +14,8 @@ public:
 
 	void Draw() const override;
 	void Update() override;
-	
+
+	bool IntersectWithPoint(int x, int y) { return m_transform.IntersectWithPoint(x, y); }
 	BrickColor GetColor() const { return m_color; }
 	void UpdatePosition(int x, int y);
 private:

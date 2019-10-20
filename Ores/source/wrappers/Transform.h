@@ -9,7 +9,7 @@ class Transform
 public:
 	Transform();
 	Transform(int x, int y, uint w, uint h);
-	~Transform();
+	~Transform() = default;
 	Transform(const Transform& transform);
 
 	uint Width() const { return m_rect.w; }
@@ -18,7 +18,7 @@ public:
 	int Y() const { return m_rect.y; }
 	SDL_Rect Rect() const { return m_rect; }
 	void UpdatePosition(int x, int y);
-	
+	bool IntersectWithPoint(int x, int y);
 private:
 	void SetX(int x) { m_rect.x = x; }
 	void SetY(int y) { m_rect.y = y; }

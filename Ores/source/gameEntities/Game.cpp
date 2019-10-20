@@ -6,24 +6,12 @@
 #include "Brick.h"
 #include "DirectionToVector.h"
 #include "MatrixGrid.h"
-
-Uint32 PushSpawnColumnEvent(Uint32 msBetweenSpawns, void* params)	// TODO MOVE THIS SOMEWHERE ELSE
-{
-	SDL_UserEvent userEvent;
-	userEvent.type = SDL_USEREVENT;
-	userEvent.code = UserEvent::SpawnColumn;
-
-	SDL_Event event;
-	event.type = SDL_USEREVENT;
-	event.user = userEvent;
-
-	SDL_PushEvent(&event);
-	return msBetweenSpawns;
-}
+#include "EventsHandler.h"
 
 Game::Game()
 	:m_window(nullptr, SDL_DestroyWindow),
-	 m_grid(std::make_unique<MatrixGrid>())
+	 m_grid(std::make_unique<MatrixGrid>()),
+	m_eventsHandler(std::make_unique<EventsHandler>())
 {
 	CreateWindow();
 	TextureManager::InitTextureManager(m_window.get());
@@ -34,7 +22,7 @@ void Game::InitGame()
 {
 	m_grid->Init();
 	InitGameObjects();
-	InitTimer();
+	m_eventsHandler->InitTimer();
 }
 
 void Game::CreateWindow()
@@ -56,11 +44,6 @@ void Game::InitGameObjects()
 	m_grid->InitBricks();
 }
 
-void Game::InitTimer()
-{
-	int s;
-	m_spawnNewColumnTimer = SDL_AddTimer(Consts::MS_BETWEEN_COLUMN_SPAWNS, PushSpawnColumnEvent, &s);
-}
 
 void Game::Draw()	
 {
@@ -77,42 +60,7 @@ void Game::Update()
 
 void Game::ProcessEvents()
 {
-	auto event = std::make_unique<SDL_Event>();
-	while(SDL_PollEvent(event.get()) != 0)
-	{
-		if(event->type == SDL_QUIT)
-		{
-			m_isRunning = false;
-		}
-		else if(event->type == SDL_MOUSEBUTTONDOWN && event->button.button == SDL_BUTTON_LEFT)
-		{
-			if(m_grid->IsBrickOnClickedPosition(event->button.x, event->button.y, m_clickedBrick))
-			{
-				std::set<std::pair<uint, uint>> indexesToDelete;
-				m_grid->FindSequenceStartingIn(m_clickedBrick, indexesToDelete);
-				if(indexesToDelete.size() > 1)
-				{
-					m_grid->DeleteSequence(indexesToDelete);
-					m_grid->DeleteEmptyColumns();
-					m_grid->UpdatePositionOfBricks();
-				}
-			}
-		}
-		if(event->type == SDL_USEREVENT && event->user.code == UserEvent::SpawnColumn)
-		{
-			if(m_grid->CurrentNumberOfColumns() < Consts::NUM_MAX_COLUMNS)
-			{
-				m_grid->SpawnColumn();
-			}
-			else
-			{
-				SDL_RemoveTimer(m_spawnNewColumnTimer);
-				m_grid->ClearGrid();
-				InitGame();
-			}
-			m_grid->UpdatePositionOfBricks();
-		}
-	}
+	m_eventsHandler->ProcessEvents(*this);
 }
 
 Game::~Game()

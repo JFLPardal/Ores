@@ -15,8 +15,8 @@ public:
 	virtual void Update() = 0;
 
 	virtual uint CurrentNumberOfColumns() const = 0;
-	virtual bool IsBrickOnClickedPosition(int x, int y, Brick& brickToStoreData) = 0;
-	virtual void FindSequenceStartingIn(const Brick& clickedBrick, std::set<std::pair<uint, uint>>& IndexesToDelete) const = 0;
+	virtual bool IsBrickOnClickedPosition(int x, int y) = 0;
+	virtual void FindSequenceInClick(std::set<std::pair<uint, uint>>& IndexesToDelete) const = 0;
 		
 	virtual void DeleteSequence(const std::set<std::pair<uint, uint>>& indexesToDelete) = 0;
 	virtual void DeleteEmptyColumns() = 0;

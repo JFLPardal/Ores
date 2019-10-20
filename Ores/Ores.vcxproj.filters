@@ -45,6 +45,9 @@
     <ClCompile Include="source\gameEntities\MatrixGrid.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\wrappers\EventsHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\TextureManager.h">
@@ -81,6 +84,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="source\gameEntities\MatrixGrid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\wrappers\EventsHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

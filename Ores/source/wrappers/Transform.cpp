@@ -34,7 +34,9 @@ void Transform::SetRect(int x, int y, uint w, uint h)
 	m_rect.h = h;
 }
 
-Transform::~Transform()
-{	
+bool Transform::IntersectWithPoint(int x, int y)
+{
+	SDL_Point positionClicked{ x, y };
+	return SDL_PointInRect(&positionClicked, &m_rect); 
 }
 

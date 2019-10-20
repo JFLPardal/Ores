@@ -5,8 +5,6 @@ VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Ores", "Ores\Ores.vcxproj", "{85501C27-2A52-4D3F-B9A5-C7D1189EC10E}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestsForOres", "TestsForOres\TestsForOres.vcxproj", "{444F383E-01BC-498A-AD0F-DEDC9DADA772}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -23,14 +21,6 @@ Global
 		{85501C27-2A52-4D3F-B9A5-C7D1189EC10E}.Release|x64.Build.0 = Release|x64
 		{85501C27-2A52-4D3F-B9A5-C7D1189EC10E}.Release|x86.ActiveCfg = Release|Win32
 		{85501C27-2A52-4D3F-B9A5-C7D1189EC10E}.Release|x86.Build.0 = Release|Win32
-		{444F383E-01BC-498A-AD0F-DEDC9DADA772}.Debug|x64.ActiveCfg = Debug|x64
-		{444F383E-01BC-498A-AD0F-DEDC9DADA772}.Debug|x64.Build.0 = Debug|x64
-		{444F383E-01BC-498A-AD0F-DEDC9DADA772}.Debug|x86.ActiveCfg = Debug|Win32
-		{444F383E-01BC-498A-AD0F-DEDC9DADA772}.Debug|x86.Build.0 = Debug|Win32
-		{444F383E-01BC-498A-AD0F-DEDC9DADA772}.Release|x64.ActiveCfg = Release|x64
-		{444F383E-01BC-498A-AD0F-DEDC9DADA772}.Release|x64.Build.0 = Release|x64
-		{444F383E-01BC-498A-AD0F-DEDC9DADA772}.Release|x86.ActiveCfg = Release|Win32
-		{444F383E-01BC-498A-AD0F-DEDC9DADA772}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

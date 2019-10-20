@@ -64,16 +64,15 @@ void MatrixGrid::ClearGrid()
 	m_bricks.clear();
 }
 
-bool MatrixGrid::IsBrickOnClickedPosition(int x, int y, Brick& brickToStoreData) // TODO make this more efficient and not depend on SDL
+bool MatrixGrid::IsBrickOnClickedPosition(int x, int y) // TODO make this more efficient
 {
-	SDL_Point positionClicked{ x, y };
 	for (auto& column : m_bricks)
 	{
 		for (auto& brick : column)
-		{
-			if (SDL_PointInRect(&positionClicked, &brick.GetTransform().Rect() ))
+		{			
+			if (brick.IntersectWithPoint(x, y))
 			{
-				brickToStoreData = brick;
+				m_clickedBrick = brick;
 				return true;
 			}
 		}
@@ -83,19 +82,21 @@ bool MatrixGrid::IsBrickOnClickedPosition(int x, int y, Brick& brickToStoreData)
 
 std::pair<int, int> MatrixGrid::GridPositionOfBrick(const Brick& brick) const
 {
-	const int gridInitialX = Consts::INITIAL_BRICK_X;
-	const int gridInitialY = Consts::INITIAL_BRICK_Y;
+	const uint gridInitialX = Consts::INITIAL_BRICK_X;
+	const uint gridInitialY = Consts::INITIAL_BRICK_Y;
 	const uint brickW = Consts::BRICK_W;
 	const uint brickH = Consts::BRICK_H;
 	const uint bricksPerColumn = Consts::BRICKS_PER_COLUMN;
-
+	const uint BrickX = brick.GetTransform().X();
+	const uint BrickY = brick.GetTransform().Y();
+	
 	for (size_t x = 1; x <= m_bricks.size(); x++)
 	{
-		if (brick.GetTransform().X() > gridInitialX - brickW * x)
+		if (BrickX > gridInitialX - brickW * x)
 		{
-			for (size_t y = 1; x < bricksPerColumn; y++)
+			for (size_t y = 1; y < bricksPerColumn; y++)
 			{
-				if (brick.GetTransform().Y() > gridInitialY - brickH * y)
+				if (BrickY > gridInitialY - brickH * y)
 				{
 					return std::pair<int, int>{--x, --y};
 				}
@@ -104,28 +105,27 @@ std::pair<int, int> MatrixGrid::GridPositionOfBrick(const Brick& brick) const
 	}
 	return std::pair<int, int>{-1, -1};
 }
-
-void MatrixGrid::FindSequenceStartingIn(const Brick& brick, std::set<std::pair<uint, uint>>& indexesToDelete) const // TODO maybe put this in IGrid?
+// This functions uses 2 data structures: 1) a set to keep all the (unique) pairs of indexes that are to be deleted
+// and 2) a queue that holds all the pairs of indexes that still need to be color tested against the clicked brick 
+void MatrixGrid::FindSequenceInClick(std::set<std::pair<uint, uint>>& indexesToDelete) const
 {
-	const uint numDirections = Consts::NUM_DIRECTIONS;
-	std::queue<std::pair<uint, uint>> queue;
-	// find clicked brick index
-	const auto clickedBrickPosition = GridPositionOfBrick(brick);
+	const auto clickedBrickPosition = GridPositionOfBrick(m_clickedBrick);
 	indexesToDelete.insert(clickedBrickPosition);
+	std::queue<std::pair<uint, uint>> queue;
 	queue.push(clickedBrickPosition);
-
+	
+	const uint numDirections = Consts::NUM_DIRECTIONS;
+	const auto clickedBrickColor = m_clickedBrick.GetColor();
+	
 	while (!queue.empty())
 	{
 		const auto currentPosition = queue.front();
-		// for each direction U,R,D,L
 		for (size_t dirToCheck = 0; dirToCheck < numDirections; dirToCheck++)
 		{
-			// check if brick in that direction is of the same type
 			auto positionToCheck = GetBrickRelativePosition(currentPosition, (Direction) dirToCheck);
 			if (IsPositionValid(positionToCheck))
 			{
-				// if they are the same type, add them to indicesToDelete
-				if (brick.GetColor() == m_bricks[positionToCheck.first][positionToCheck.second].GetColor())
+				if (clickedBrickColor == m_bricks[positionToCheck.first][positionToCheck.second].GetColor())
 				{
 					if (indexesToDelete.find(positionToCheck) == indexesToDelete.end())
 					{
@@ -152,22 +152,22 @@ void MatrixGrid::DeleteSequence(const std::set<std::pair<uint, uint>>& indexesTo
 	std::set<std::pair<uint, uint>>::reverse_iterator rit;
 	for (rit = indexesToDelete.rbegin(); rit != indexesToDelete.rend(); ++rit)
 	{
-		auto posToDelete = m_bricks[rit->first].begin() + rit->second;
+		const auto posToDelete = m_bricks[rit->first].begin() + rit->second;
 		m_bricks[rit->first].erase(posToDelete);
 	}
 }
 
-std::pair<int, int> MatrixGrid::GetBrickRelativePosition(std::pair<uint, uint> brickPositionInGrid, Direction direction) const // TODO IGrid?
+std::pair<int, int> MatrixGrid::GetBrickRelativePosition(std::pair<uint, uint> brickPositionInGrid, Direction direction) const
 {
 	std::pair<int, int> relativePos;
-	auto dirToVector = DirectionToVector::GetInstance();	// usar como member variable
+	auto dirToVector = DirectionToVector::GetInstance();
 	relativePos.first = brickPositionInGrid.first + dirToVector->GetXIncrement(direction);
 	relativePos.second = brickPositionInGrid.second + dirToVector->GetYIncrement(direction);
 
 	return relativePos;
 }
 
-bool MatrixGrid::IsPositionValid(std::pair<int, int> position) const
+bool MatrixGrid::IsPositionValid(std::pair<uint, uint> position) const
 {
 	if (position.first >= 0 && position.first < m_currentNumColumns && position.second >= 0 && position.second < Consts::BRICKS_PER_COLUMN)
 	{
@@ -193,7 +193,7 @@ void MatrixGrid::DeleteEmptyColumns()
 	{
 		if (m_bricks[x].empty())
 		{
-			auto columnToDelete = m_bricks.begin() + x;
+			const auto columnToDelete = m_bricks.begin() + x;
 			m_bricks.erase(columnToDelete);
 			m_currentNumColumns--;
 			x--;

@@ -9,7 +9,7 @@ public:
 	GameObject();
 	GameObject(int x, int y);
 	GameObject(int x, int y, int w, int h);
-	virtual ~GameObject();
+	virtual ~GameObject() = default;
 
 	virtual void Draw() const;
 	virtual void Update();

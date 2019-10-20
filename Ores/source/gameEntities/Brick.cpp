@@ -23,14 +23,14 @@ Brick::Brick(const Brick& brick)
 	printf("copied brick");
 }
 
-void Brick::Update()
-{
-	m_transform.UpdatePosition(m_gridPosition.first, m_gridPosition.second);
-}
-
 void Brick::Draw() const
 {
 	TextureManager::Draw(this);
+}
+
+void Brick::Update()
+{
+	m_transform.UpdatePosition(m_gridPosition.first, m_gridPosition.second);
 }
 
 void Brick::UpdatePosition(int x, int y)

@@ -1,5 +1,4 @@
 #include "GameObject.h"
-#include <cstdio>	//remove
 
 #include "Transform.h"
 #include "Constants.h"
@@ -40,9 +39,4 @@ void GameObject::Update()
 void GameObject::NextID()
 {
 	m_nextId++;
-}
-
-GameObject::~GameObject()
-{
-	printf("GO destroyed\n");
 }

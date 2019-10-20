@@ -27,8 +27,8 @@ namespace Consts
 
 	// grid's dimensions
 	const unsigned int BRICKS_PER_COLUMN = 10;
-	const unsigned int NUM_MAX_COLUMNS = 10;
-	const unsigned int NUM_INITIAL_COLUMNS = 3;
+	const unsigned int NUM_MAX_COLUMNS = 16;
+	const unsigned int NUM_INITIAL_COLUMNS = 5;
 	const unsigned int INITIAL_VEC_CAPACITY = BRICKS_PER_COLUMN * NUM_INITIAL_COLUMNS;
 
 	// initial brick's position

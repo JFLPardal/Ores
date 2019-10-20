@@ -196,6 +196,7 @@
     </ClCompile>
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\TextureManager.cpp" />
+    <ClCompile Include="source\wrappers\EventsHandler.cpp" />
     <ClCompile Include="source\wrappers\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -209,6 +210,7 @@
     <ClInclude Include="source\sharedData\pch.h" />
     <ClInclude Include="source\sharedData\Constants.h" />
     <ClInclude Include="source\gameEntities\Game.h" />
+    <ClInclude Include="source\wrappers\EventsHandler.h" />
     <ClInclude Include="source\wrappers\Transform.h" />
     <ClInclude Include="source\TextureManager.h" />
   </ItemGroup>
