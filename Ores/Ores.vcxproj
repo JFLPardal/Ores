@@ -91,7 +91,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Ores\source\wrappers;$(SolutionDir)Ores\source\gameEntities;$(SolutionDir)Ores\source\sharedData;$(SolutionDir)Ores\assets\sprites;$(SolutionDir)Ores\source;$(SolutionDir)3rdPartyLibraries\SDL2.0.10\include;$(SolutionDir)3rdPartyLibraries\SDL2_image-2.0.5\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Ores\source\interfaces;$(SolutionDir)Ores\source\wrappers;$(SolutionDir)Ores\source\gameEntities;$(SolutionDir)Ores\source\sharedData;$(SolutionDir)Ores\assets\sprites;$(SolutionDir)Ores\source;$(SolutionDir)3rdPartyLibraries\SDL2.0.10\include;$(SolutionDir)3rdPartyLibraries\SDL2_image-2.0.5\include;</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SDL_MAIN_HANDLED;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
@@ -127,7 +127,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Ores\source\wrappers;$(SolutionDir)Ores\source\gameEntities;$(SolutionDir)Ores\source\sharedData;$(SolutionDir)Ores\assets\sprites;$(SolutionDir)Ores\source;$(SolutionDir)3rdPartyLibraries\SDL2.0.10\include;$(SolutionDir)3rdPartyLibraries\SDL2_image-2.0.5\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Ores\source\interfaces;$(SolutionDir)Ores\source\wrappers;$(SolutionDir)Ores\source\gameEntities;$(SolutionDir)Ores\source\sharedData;$(SolutionDir)Ores\assets\sprites;$(SolutionDir)Ores\source;$(SolutionDir)3rdPartyLibraries\SDL2.0.10\include;$(SolutionDir)3rdPartyLibraries\SDL2_image-2.0.5\include;</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SDL_MAIN_HANDLED;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
@@ -174,6 +174,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="source\gameEntities\MatrixGrid.cpp" />
     <ClCompile Include="source\sharedData\DirectionToVector.cpp" />
     <ClCompile Include="source\sharedData\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -198,6 +199,7 @@
     <ClCompile Include="source\wrappers\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="source\gameEntities\MatrixGrid.h" />
     <ClInclude Include="source\interfaces\IGrid.h" />
     <ClInclude Include="source\sharedData\Aliases.h" />
     <ClInclude Include="source\gameEntities\Brick.h" />

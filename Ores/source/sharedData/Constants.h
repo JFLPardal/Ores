@@ -38,8 +38,8 @@ namespace Consts
 	extern const unsigned int LOSING_WARNING_H;
 	
 	// initial brick's position
-	extern const unsigned int INITIAL_BRICK_X;
-	extern const unsigned int INITIAL_BRICK_Y;
+	extern const int INITIAL_BRICK_X;
+	extern const int INITIAL_BRICK_Y;
 
 	// directions
 	extern const unsigned int NUM_DIRECTIONS;

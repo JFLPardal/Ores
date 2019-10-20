@@ -32,8 +32,8 @@ namespace Consts
 	const unsigned int INITIAL_VEC_CAPACITY = BRICKS_PER_COLUMN * NUM_INITIAL_COLUMNS;
 
 	// initial brick's position
-	const unsigned int INITIAL_BRICK_X = WINDOW_WIDTH - BRICK_W;
-	const unsigned int INITIAL_BRICK_Y = WINDOW_HEIGHT * 0.5f + BRICK_H * BRICKS_PER_COLUMN * 0.5f;
+	const int INITIAL_BRICK_X = WINDOW_WIDTH - BRICK_W;
+	const int INITIAL_BRICK_Y = WINDOW_HEIGHT * 0.5f + BRICK_H * BRICKS_PER_COLUMN * 0.5f;
 
 	// loosing warning
 	extern const unsigned int LOSING_WARNING_X = WINDOW_WIDTH - BRICK_W * NUM_MAX_COLUMNS - BRICK_W * 0.5f;
@@ -45,6 +45,6 @@ namespace Consts
 	const unsigned int NUM_DIRECTIONS = 4;
 	
 	// delays (all in ms)
-	const unsigned int MS_BETWEEN_COLUMN_SPAWNS = 500;
+	const unsigned int MS_BETWEEN_COLUMN_SPAWNS = 2000;
 }
 	

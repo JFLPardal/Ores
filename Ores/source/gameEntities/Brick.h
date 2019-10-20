@@ -2,7 +2,7 @@
 #include "GameObject.h"
 #include "Enums.h"
 
-class Game;
+class IGrid;
 
 class Brick : public GameObject
 {
@@ -16,7 +16,7 @@ public:
 	void Update() override;
 	
 	BrickColor GetColor() const { return m_color; }
-	friend class Game;
+	void UpdatePosition(int x, int y);
 private:
 	BrickColor m_color;
 	std::pair<uint, uint> m_gridPosition;

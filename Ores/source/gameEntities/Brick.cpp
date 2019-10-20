@@ -33,6 +33,13 @@ void Brick::Draw() const
 	TextureManager::Draw(this);
 }
 
+void Brick::UpdatePosition(int x, int y)
+{
+	m_gridPosition.first = x;
+	m_gridPosition.second = y;
+}
+
+
 Brick::~Brick()
 {
 	printf("brick destroyed\n");
