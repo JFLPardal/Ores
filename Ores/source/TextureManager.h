@@ -18,19 +18,19 @@ void SDL_FreeSurface(SDL_Surface*);
 class TextureManager
 {
 public:
-	TextureManager(SDL_Window* window);
 	~TextureManager();
-	
-	void ClearRender() const;
-	void PresentRender()const;
+
+	static void InitTextureManager(SDL_Window* window);
+	static void ClearRender();
+	static void PresentRender();
 	static void Draw(const Brick* objectToDraw);
 	static void Draw(const GameObject* objectToDraw);
 
 	SDL_Renderer* GetRenderer() { return m_renderer.get(); }
 private:
-	void CreateRenderer(SDL_Window* window);
-	void LoadTexture(const char* texturePath, BrickColor color);
-	void AddSpriteToMapOfSprites(const BrickColor color, std::unique_ptr<SDL_Surface, decltype(&SDL_FreeSurface)> surface);
+	static void CreateRenderer(SDL_Window* window);
+	static void LoadTexture(const char* texturePath, BrickColor color);
+	static void AddSpriteToMapOfSprites(const BrickColor color, std::unique_ptr<SDL_Surface, decltype(&SDL_FreeSurface)> surface);
 private:
 	static std::map<BrickColor, std::shared_ptr<SDL_Texture>> m_BrickColorToTexture;
 	static std::unique_ptr<SDL_Renderer, decltype(&SDL_DestroyRenderer)> m_renderer;

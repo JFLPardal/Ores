@@ -9,7 +9,7 @@ std::map<BrickColor, std::shared_ptr<SDL_Texture>> TextureManager::m_BrickColorT
 std::unique_ptr<SDL_Renderer, decltype(&SDL_DestroyRenderer)> TextureManager::m_renderer{ nullptr, SDL_DestroyRenderer };
 SDL_Rect TextureManager::m_rect;
 
-TextureManager::TextureManager(SDL_Window* window)
+void TextureManager::InitTextureManager(SDL_Window* window)
 {
 	CreateRenderer(window);
 	LoadTexture(Consts::blueOre, BrickColor::Blue);
@@ -19,12 +19,13 @@ TextureManager::TextureManager(SDL_Window* window)
 	LoadTexture(Consts::yellowOre, BrickColor::Yellow);
 }
 
-void TextureManager::ClearRender() const
+
+void TextureManager::ClearRender() 
 {
 	SDL_RenderClear(m_renderer.get());
 }
 
-void TextureManager::PresentRender() const
+void TextureManager::PresentRender() 
 {
 	SDL_RenderPresent(m_renderer.get());
 }

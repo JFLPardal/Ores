@@ -24,12 +24,13 @@ Game::Game()
 	:m_window(nullptr, SDL_DestroyWindow)
 {
 	CreateWindow();
-	m_textureManager = std::make_unique<TextureManager>(m_window.get());
+	TextureManager::InitTextureManager(m_window.get());
 	InitGame();
 }
 
 void Game::InitGame()
 {
+	m_currentNumColumns = Consts::NUM_INITIAL_COLUMNS;
 	InitGrid();
 	InitGameObjects();
 	InitTimer();
@@ -38,7 +39,6 @@ void Game::InitGame()
 void Game::InitGrid()
 {
 	m_bricks.resize(Consts::NUM_MAX_COLUMNS);
-	m_currentNumColumns = Consts::NUM_INITIAL_COLUMNS;
 	for (auto& column : m_bricks)
 	{
 		column.reserve(Consts::BRICKS_PER_COLUMN);
@@ -88,7 +88,7 @@ void Game::InitTimer()
 
 void Game::Draw()	// TODO refactor for
 {
-	m_textureManager->ClearRender();
+	TextureManager::ClearRender();
 	m_warningArea.Draw();
 	for (auto& column : m_bricks)
 	{
@@ -97,7 +97,8 @@ void Game::Draw()	// TODO refactor for
 			brick.Draw();
 		}
 	}
-	m_textureManager->PresentRender();
+	TextureManager::PresentRender();
+	
 }
 
 void Game::Update() // TODO refactor for
@@ -303,13 +304,7 @@ void Game::SpawnColumn()
 	InitBrickColumn(0);
 }
 
-
-void Game::Clean()
-{
-	SDL_Quit();
-}
-
 Game::~Game()
 {
-	Clean();
+	SDL_Quit();
 }

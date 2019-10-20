@@ -45,6 +45,6 @@ namespace Consts
 	const unsigned int NUM_DIRECTIONS = 4;
 	
 	// delays (all in ms)
-	const unsigned int MS_BETWEEN_COLUMN_SPAWNS = 5000;
+	const unsigned int MS_BETWEEN_COLUMN_SPAWNS = 500;
 }
 	

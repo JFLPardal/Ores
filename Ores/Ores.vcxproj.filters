@@ -74,5 +74,8 @@
     <ClInclude Include="source\sharedData\DirectionToVector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="source\interfaces\IGrid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

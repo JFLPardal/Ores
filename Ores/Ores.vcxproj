@@ -198,6 +198,7 @@
     <ClCompile Include="source\wrappers\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="source\interfaces\IGrid.h" />
     <ClInclude Include="source\sharedData\Aliases.h" />
     <ClInclude Include="source\gameEntities\Brick.h" />
     <ClInclude Include="source\sharedData\DirectionToVector.h" />
