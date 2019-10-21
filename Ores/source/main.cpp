@@ -2,11 +2,13 @@
 
 #include "Game.h"
 #include "Constants.h"
+#include "RNGFunctions.h"
 
 void EnforceFrameRate(const Uint32 frameStart);
 
 int main(int argc, char* argv[])
 {
+	RNG::InitRNG();
 	auto m_game = std::make_unique<Game>();
 	Uint32 frameStart = 0;
 	

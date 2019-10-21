@@ -6,7 +6,7 @@
 Transform::Transform()
 	:m_rect()
 {
-	SetRect(0, 0, Consts::BRICK_W, Consts::BRICK_H);
+	SetRect(0, 0, Consts::DEFAULT_W, Consts::DEFAULT_H);
 }
 
 Transform::Transform(int x, int y, uint w, uint h)
@@ -22,8 +22,8 @@ Transform::Transform(const Transform& transform)
 
 void Transform::UpdatePosition(int x, int y)
 {
-	SetX(Consts::INITIAL_BRICK_X - x * Consts::BRICK_W);
-	SetY(Consts::INITIAL_BRICK_Y - y * Consts::BRICK_H);
+	SetX(x);
+	SetY(y);
 }
 
 void Transform::SetRect(int x, int y, uint w, uint h)

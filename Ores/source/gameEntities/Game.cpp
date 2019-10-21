@@ -7,6 +7,7 @@
 #include "DirectionToVector.h"
 #include "MatrixGrid.h"
 #include "EventsHandler.h"
+#include "ParticleSystemManager.h"
 
 Game::Game()
 	:m_window(nullptr, SDL_DestroyWindow),
@@ -23,6 +24,7 @@ void Game::InitGame()
 	m_grid->Init();
 	InitGameObjects();
 	m_eventsHandler->InitTimer();
+	ParticleSystemManager::Init();
 }
 
 void Game::CreateWindow()
@@ -50,11 +52,13 @@ void Game::Draw()
 	TextureManager::ClearRender();
 	m_warningArea.Draw();
 	m_grid->Draw();
+	ParticleSystemManager::Draw();
 	TextureManager::PresentRender();
 }
 
 void Game::Update() 
 {
+	ParticleSystemManager::Update();
 	m_grid->Update();
 }
 

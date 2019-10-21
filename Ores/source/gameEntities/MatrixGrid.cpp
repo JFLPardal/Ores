@@ -94,7 +94,7 @@ std::pair<int, int> MatrixGrid::GridPositionOfBrick(const Brick& brick) const
 	{
 		if (BrickX > gridInitialX - brickW * x)
 		{
-			for (size_t y = 1; y < bricksPerColumn; y++)
+			for (size_t y = 1; y <= bricksPerColumn; y++)
 			{
 				if (BrickY > gridInitialY - brickH * y)
 				{
@@ -105,6 +105,7 @@ std::pair<int, int> MatrixGrid::GridPositionOfBrick(const Brick& brick) const
 	}
 	return std::pair<int, int>{-1, -1};
 }
+
 // This functions uses 2 data structures: 1) a set to keep all the (unique) pairs of indexes that are to be deleted
 // and 2) a queue that holds all the pairs of indexes that still need to be color tested against the clicked brick 
 void MatrixGrid::FindSequenceInClick(std::set<std::pair<uint, uint>>& indexesToDelete) const
@@ -137,11 +138,7 @@ void MatrixGrid::FindSequenceInClick(std::set<std::pair<uint, uint>>& indexesToD
 		}
 		queue.pop();
 	}
-	printf("Indexes to delete:\n");
-	for (auto& indexToDelete : indexesToDelete)
-	{
-		printf("(%d,%d)\n", indexToDelete.first, indexToDelete.second);
-	}
+	//PrintIndexesToDelete(indexesToDelete);
 }
 
 // Due to the way std::vector works this function will automatically update the indexes
@@ -212,7 +209,11 @@ void MatrixGrid::UpdatePositionOfBricks()
 	}
 }
 
-MatrixGrid::~MatrixGrid()
+void MatrixGrid::PrintIndexesToDelete(std::set<std::pair<uint, uint>>& indexesToDelete) const
 {
-	printf("matrixGrid deleted");
+	printf("Indexes to delete:\n");
+	for (auto& indexToDelete : indexesToDelete)
+	{
+		printf("(%d,%d)\n", indexToDelete.first, indexToDelete.second);
+	}
 }

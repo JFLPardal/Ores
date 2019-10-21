@@ -17,9 +17,14 @@ namespace Consts
 	extern const char* greenOre;
 	extern const char* greyOre;
 	extern const char* yellowOre;
+	extern const char* brickParticle;
 
 	// 
 	extern const unsigned int NUM_DIF_BRICKS;
+
+	// default game objects' dimensions
+	extern const unsigned int DEFAULT_W;
+	extern const unsigned int DEFAULT_H;
 	
 	// sprites' dimensions
 	extern const unsigned int BRICK_W;
@@ -31,6 +36,12 @@ namespace Consts
 	extern const unsigned int NUM_INITIAL_COLUMNS;
 	extern const unsigned int INITIAL_VEC_CAPACITY;
 
+	// particles 
+	extern const unsigned int MAX_PARTICLE_LIFETIME; // in frames, should be ms
+	extern const unsigned int MIN_PARTICLE_LIFETIME; // in frames, should be ms
+	extern const unsigned int MIN_NUMBER_PARTICLES; 
+	extern const unsigned int MAX_NUMBER_PARTICLES; 
+	
 	// loosing warning
 	extern const unsigned int LOSING_WARNING_X;
 	extern const unsigned int LOSING_WARNING_Y;

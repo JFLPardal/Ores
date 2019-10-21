@@ -9,8 +9,7 @@ class Brick : public GameObject
 public:
 	Brick();
 	Brick(int x, int y);
-	Brick(const Brick& brick); // TODO delete this, for debug only
-	~Brick();
+	~Brick() = default;
 
 	void Draw() const override;
 	void Update() override;

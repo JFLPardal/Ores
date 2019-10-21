@@ -7,7 +7,7 @@ class MatrixGrid : public IGrid
 {
 public:
 	MatrixGrid();
-	~MatrixGrid();
+	~MatrixGrid() = default;
 
 	void Init() override;
 	void InitBricks() override;
@@ -28,6 +28,8 @@ private:
 	std::pair<int, int> GridPositionOfBrick(const Brick& brick) const;
 	std::pair<int, int> GetBrickRelativePosition(std::pair<uint, uint> brickPositionInGrid, Direction direction) const;
 	bool IsPositionValid(std::pair<uint, uint> position) const;
+
+	void PrintIndexesToDelete(std::set<std::pair<uint, uint>>& indexesToDelete) const;
 private:
 	std::vector<std::vector<Brick>> m_bricks;
 	Brick m_clickedBrick;

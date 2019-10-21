@@ -5,6 +5,13 @@
 #include "Constants.h"
 #include "Game.h"
 #include "IGrid.h"
+#include "ClickWindow.h"
+
+EventsHandler::EventsHandler()
+	:m_clickEvent(std::make_unique<ClickWindow>())
+{
+}
+
 
 void EventsHandler::ProcessEvents(Game& game)
 {
@@ -32,17 +39,7 @@ void EventsHandler::QuitGame(Game& game)
 
 void EventsHandler::PlayerClickedWindow(SDL_Event& event, IGrid& grid)
 {
-	if (grid.IsBrickOnClickedPosition(event.button.x, event.button.y))
-	{
-		std::set<std::pair<uint, uint>> indexesToDelete;
-		grid.FindSequenceInClick(indexesToDelete);
-		if (indexesToDelete.size() > 1)
-		{
-			grid.DeleteSequence(indexesToDelete);
-			grid.DeleteEmptyColumns();
-			grid.UpdatePositionOfBricks();
-		}
-	}
+	m_clickEvent->PlayerClickedWindow(event, grid);
 }
 
 void EventsHandler::TryToSpawnColumns(Game& game)

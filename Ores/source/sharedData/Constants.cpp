@@ -17,9 +17,14 @@ namespace Consts
 	const char* greenOre = "../Ores/assets/sprites/ores/green_square.png";
 	const char* greyOre = "../Ores/assets/sprites/ores/grey_square.png";
 	const char* yellowOre = "../Ores/assets/sprites/ores/yellow_square.png";
+	const char* brickParticle = "../Ores/assets/sprites/ores/brick_particle.png";
 
 	//
 	const unsigned int NUM_DIF_BRICKS = 5;
+
+	// default game objects' dimensions
+	const unsigned int DEFAULT_W = 10;
+	const unsigned int DEFAULT_H = 10;
 	
 	// sprites' dimensions
 	const unsigned int BRICK_W = 32;
@@ -33,18 +38,24 @@ namespace Consts
 
 	// initial brick's position
 	const int INITIAL_BRICK_X = WINDOW_WIDTH - BRICK_W;
-	const int INITIAL_BRICK_Y = WINDOW_HEIGHT * 0.5f + BRICK_H * BRICKS_PER_COLUMN * 0.5f;
+	const int INITIAL_BRICK_Y = (int)(WINDOW_HEIGHT * 0.5f) + (int)(BRICK_H * BRICKS_PER_COLUMN * 0.5f);
 
+	// particles 
+	const unsigned int MAX_PARTICLE_LIFETIME = 25; // in frames, should be ms
+	const unsigned int MIN_PARTICLE_LIFETIME = 20; // in frames, should be ms
+	const unsigned int MIN_NUMBER_PARTICLES = 3;
+	const unsigned int MAX_NUMBER_PARTICLES = 5;
+	
 	// loosing warning
-	extern const unsigned int LOSING_WARNING_X = WINDOW_WIDTH - BRICK_W * NUM_MAX_COLUMNS - BRICK_W * 0.5f;
-	extern const unsigned int LOSING_WARNING_Y = WINDOW_HEIGHT * 0.5f - BRICK_H * BRICKS_PER_COLUMN * 0.5f;
-	extern const unsigned int LOSING_WARNING_W = BRICK_W * 0.25f;
+	extern const unsigned int LOSING_WARNING_X = WINDOW_WIDTH - BRICK_W * NUM_MAX_COLUMNS - (int)(BRICK_W * 0.5f);
+	extern const unsigned int LOSING_WARNING_Y = (int)(WINDOW_HEIGHT * 0.5f) - (int)(BRICK_H * BRICKS_PER_COLUMN * 0.5f);
+	extern const unsigned int LOSING_WARNING_W = (int)(BRICK_W * 0.25f);
 	extern const unsigned int LOSING_WARNING_H = BRICK_H * (BRICKS_PER_COLUMN + 2);
 
 	// directions
 	const unsigned int NUM_DIRECTIONS = 4;
 	
 	// delays (all in ms)
-	const unsigned int MS_BETWEEN_COLUMN_SPAWNS = 2000;
+	const unsigned int MS_BETWEEN_COLUMN_SPAWNS = 4000;
 }
 	
