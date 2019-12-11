@@ -6,12 +6,12 @@
 #include "Game.h"
 #include "IGrid.h"
 #include "ClickWindow.h"
+#include "TimerWithFillBar.h"
 
 EventsHandler::EventsHandler()
-	:m_clickEvent(std::make_unique<ClickWindow>())
+	:m_clickEvent(std::make_unique<ClickWindow>()), m_ColumnSpawnTimer(std::make_unique<TimerWithFillBar>())
 {
 }
-
 
 void EventsHandler::ProcessEvents(Game& game)
 {
@@ -30,7 +30,8 @@ void EventsHandler::ProcessEvents(Game& game)
 		{
 			if (TryToSpawnColumns(game))
 			{
-				UpdateColumnSpawnTimer();
+				m_ColumnSpawnTimer->Update();
+				//UpdateColumnSpawnTimer();
 			}
 		}
 	}
@@ -68,7 +69,7 @@ void EventsHandler::SpawnColumn(IGrid& grid)
 
 void EventsHandler::RestartGame(Game& game)
 {
-	SDL_RemoveTimer(m_spawnNewColumnTimer);
+	m_ColumnSpawnTimer->Remove();
 	game.Grid().ClearGrid();
 	game.InitGame();
 }
@@ -78,19 +79,9 @@ void EventsHandler::UpdateGrid(IGrid& grid)
 	grid.UpdatePositionOfBricks();
 }
 
-void EventsHandler::InitTimer(float secondsBetweenColumnsSpawns)
+void EventsHandler::InitTimer(float secondsBetweenColumnsSpawns) 
 {
-	int s = 0;
-	m_currentSecondsBetweenColumnsSpawns = secondsBetweenColumnsSpawns;
-	m_spawnNewColumnTimer = SDL_AddTimer(m_currentSecondsBetweenColumnsSpawns * 1000, PushSpawnColumnEvent, &s);
-}
-
-void EventsHandler::UpdateColumnSpawnTimer()
-{
-	int s = 0;
-	SDL_RemoveTimer(m_spawnNewColumnTimer); // make sure the previous assigned function(if any) is replaced with new timer instead of adding to it
-	m_currentSecondsBetweenColumnsSpawns = GetNextColumnSpawnTimer();
-	m_spawnNewColumnTimer = SDL_AddTimer(m_currentSecondsBetweenColumnsSpawns * 1000, PushSpawnColumnEvent, &s);
+	m_ColumnSpawnTimer->Init(secondsBetweenColumnsSpawns, PushSpawnColumnEvent);
 }
 
 float EventsHandler::GetNextColumnSpawnTimer() const

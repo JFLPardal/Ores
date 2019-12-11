@@ -203,6 +203,7 @@
     <ClCompile Include="source\TextureManager.cpp" />
     <ClCompile Include="source\wrappers\EventsHandler.cpp" />
     <ClCompile Include="source\wrappers\Transform.cpp" />
+    <ClCompile Include="source\gameEntities\TimerWithFillBar.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\events\ClickWindow.h" />
@@ -213,6 +214,7 @@
     <ClInclude Include="source\gameEntities\ParticleSystemManager.h" />
     <ClInclude Include="source\interfaces\IClickEvent.h" />
     <ClInclude Include="source\interfaces\IGrid.h" />
+    <ClInclude Include="source\interfaces\ITimer.h" />
     <ClInclude Include="source\sharedData\Aliases.h" />
     <ClInclude Include="source\gameEntities\Brick.h" />
     <ClInclude Include="source\sharedData\DirectionToVector.h" />
@@ -225,6 +227,7 @@
     <ClInclude Include="source\wrappers\RNGFunctions.h" />
     <ClInclude Include="source\wrappers\Transform.h" />
     <ClInclude Include="source\TextureManager.h" />
+    <ClInclude Include="source\gameEntities\TimerWithFillBar.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

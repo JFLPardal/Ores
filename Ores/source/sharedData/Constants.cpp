@@ -56,7 +56,7 @@ namespace Consts
 	const unsigned int NUM_DIRECTIONS = 4;
 	
 	// delays (all in s)
-	const float SEC_BETWEEN_COLUMN_SPAWNS = 8;
+	const float SEC_BETWEEN_COLUMN_SPAWNS = 4;
 	const float MIN_SEC_BETWEEN_COLUMN_SPAWNS = 4;
 	const float DECREMENT_COLUMN_SPAWN_TIMER_SECS = .5f;
 }

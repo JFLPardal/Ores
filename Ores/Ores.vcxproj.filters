@@ -63,6 +63,9 @@
     <ClCompile Include="source\gameEntities\FillBar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\gameEntities\TimerWithFillBar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\TextureManager.h">
@@ -123,6 +126,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="source\gameEntities\FillBar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\interfaces\ITimer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\gameEntities\TimerWithFillBar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

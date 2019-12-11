@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "IClickEvent.h"
 #include "Aliases.h"
+#include "ITimer.h"
 
 class Game;
 class IGrid;
@@ -22,10 +23,9 @@ private:
 	
 	void SpawnColumn(IGrid& grid);
 	void UpdateGrid(IGrid& grid);
-	void UpdateColumnSpawnTimer(); 
 	float GetNextColumnSpawnTimer() const;
 private:
-	SDL_TimerID m_spawnNewColumnTimer;
+	uPtr<ITimer> m_ColumnSpawnTimer;
 	uPtr<IClickEvent> m_clickEvent;
 	float m_currentSecondsBetweenColumnsSpawns = -1; // TODO remove from this class
 };
