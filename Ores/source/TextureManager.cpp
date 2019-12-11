@@ -5,6 +5,7 @@
 #include "Constants.h"
 #include "Brick.h"
 #include "Particle.h"
+#include "Bar.h"
 
 std::map<BrickColor, std::shared_ptr<SDL_Texture>> TextureManager::m_brickColorToTexture;
 std::unique_ptr<SDL_Renderer, decltype(&SDL_DestroyRenderer)> TextureManager::m_renderer{ nullptr, SDL_DestroyRenderer };
@@ -45,6 +46,11 @@ void TextureManager::Draw(const GameObject* objectToDraw)
 }
 
 void TextureManager::Draw(const Particle* objectToDraw)
+{
+	SDL_RenderCopy(m_renderer.get(), m_brickColorToTexture[Grey].get(), NULL, &objectToDraw->GetTransform().Rect());
+}
+
+void TextureManager::Draw(const Bar* objectToDraw)
 {
 	SDL_RenderCopy(m_renderer.get(), m_particleTexture.get(), NULL, &objectToDraw->GetTransform().Rect());
 }

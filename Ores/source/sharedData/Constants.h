@@ -62,6 +62,14 @@ namespace Consts
 
 	// 
 	extern const float USE_ALREADY_SET_SECS;
+
+	// UI Bar dimension
+	extern const unsigned int UI_BAR_W;
+	extern const unsigned int UI_BAR_H;
+	
+	// Timer UIBar position
+	extern const unsigned int UI_BAR_X;
+	extern const unsigned int UI_BAR_Y;
 }
 
 

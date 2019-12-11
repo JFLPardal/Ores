@@ -215,6 +215,7 @@
     <ClInclude Include="source\interfaces\IClickEvent.h" />
     <ClInclude Include="source\interfaces\IGrid.h" />
     <ClInclude Include="source\interfaces\ITimer.h" />
+    <ClInclude Include="source\interfaces\IUIBar.h" />
     <ClInclude Include="source\sharedData\Aliases.h" />
     <ClInclude Include="source\gameEntities\Brick.h" />
     <ClInclude Include="source\sharedData\DirectionToVector.h" />
@@ -223,6 +224,7 @@
     <ClInclude Include="source\sharedData\pch.h" />
     <ClInclude Include="source\sharedData\Constants.h" />
     <ClInclude Include="source\gameEntities\Game.h" />
+    <ClInclude Include="source\wrappers\Bar.h" />
     <ClInclude Include="source\wrappers\EventsHandler.h" />
     <ClInclude Include="source\wrappers\RNGFunctions.h" />
     <ClInclude Include="source\wrappers\Transform.h" />

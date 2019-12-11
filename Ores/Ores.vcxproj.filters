@@ -134,5 +134,11 @@
     <ClInclude Include="source\gameEntities\TimerWithFillBar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="source\interfaces\IUIBar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\wrappers\Bar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

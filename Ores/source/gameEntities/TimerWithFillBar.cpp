@@ -1,5 +1,11 @@
 #include "pch.h"
 #include "TimerWithFillBar.h"
+#include "FillBar.h"
+
+TimerWithFillBar::TimerWithFillBar()
+	:m_TimerAsPercentageBar(std::make_unique<FillBar>(Consts::UI_BAR_X, Consts::UI_BAR_Y))
+{
+}
 
 void TimerWithFillBar::Init(float secondsBetweenCalls, SDL_TimerCallback functionToCall)
 {
@@ -15,6 +21,7 @@ void TimerWithFillBar::ChangeSecondsBetweenCalls(float newSecondsBetweenCalls)
 	int s = 0;
 	m_secondsBetweenCalls = newSecondsBetweenCalls;
 	m_timerID = SDL_AddTimer(newSecondsBetweenCalls * 1000, m_functionToCall, &s);
+	m_TimerAsPercentageBar->Fill();
 }
 
 void TimerWithFillBar::Remove()

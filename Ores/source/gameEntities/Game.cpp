@@ -50,6 +50,7 @@ void Game::InitGameObjects()
 void Game::Draw()	
 {
 	TextureManager::ClearRender();
+
 	m_warningArea.Draw();
 	m_grid->Draw();
 	ParticleSystemManager::Draw();

@@ -11,6 +11,7 @@ struct SDL_Surface;
 class Brick;
 class GameObject;
 class Particle;
+struct Bar;
 
 void SDL_DestroyTexture(SDL_Texture*);
 void SDL_DestroyRenderer(SDL_Renderer*);
@@ -27,6 +28,7 @@ public:
 	static void Draw(const Brick* objectToDraw);
 	static void Draw(const GameObject* objectToDraw);
 	static void Draw(const Particle* objectToDraw);
+	static void Draw(const Bar* objectToDraw);
 
 	SDL_Renderer* GetRenderer() { return m_renderer.get(); }
 private:

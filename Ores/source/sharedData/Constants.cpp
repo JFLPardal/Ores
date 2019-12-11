@@ -62,5 +62,13 @@ namespace Consts
 	
 	//
 	const float USE_ALREADY_SET_SECS = -1;
+
+	// UI Bar dimension
+	const unsigned int UI_BAR_W = 128;
+	const unsigned int UI_BAR_H = 32;
+
+	// Timer UIBar position
+	const unsigned int UI_BAR_X = WINDOW_WIDTH * .5f - UI_BAR_W * .5f;
+	const unsigned int UI_BAR_Y = 0;
 }
 	
