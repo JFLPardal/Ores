@@ -108,7 +108,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Ores\source\wrappers;$(SolutionDir)Ores\source\gameEntities;$(SolutionDir)Ores\source\sharedData;$(SolutionDir)Ores\assets\sprites;$(SolutionDir)Ores\source;$(SolutionDir)3rdPartyLibraries\SDL2.0.10\include;$(SolutionDir)3rdPartyLibraries\SDL2_image-2.0.5\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Ores\source\events;$(SolutionDir)Ores\source\interfaces;$(SolutionDir)Ores\source\wrappers;$(SolutionDir)Ores\source\gameEntities;$(SolutionDir)Ores\source\sharedData;$(SolutionDir)Ores\assets\sprites;$(SolutionDir)Ores\source;$(SolutionDir)3rdPartyLibraries\SDL2.0.10\include;$(SolutionDir)3rdPartyLibraries\SDL2_image-2.0.5\include;</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SDL_MAIN_HANDLED;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
@@ -148,7 +148,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Ores\source\wrappers;$(SolutionDir)Ores\source\gameEntities;$(SolutionDir)Ores\source\sharedData;$(SolutionDir)Ores\assets\sprites;$(SolutionDir)Ores\source;$(SolutionDir)3rdPartyLibraries\SDL2.0.10\include;$(SolutionDir)3rdPartyLibraries\SDL2_image-2.0.5\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Ores\source\events;$(SolutionDir)Ores\source\interfaces;$(SolutionDir)Ores\source\wrappers;$(SolutionDir)Ores\source\gameEntities;$(SolutionDir)Ores\source\sharedData;$(SolutionDir)Ores\assets\sprites;$(SolutionDir)Ores\source;$(SolutionDir)3rdPartyLibraries\SDL2.0.10\include;$(SolutionDir)3rdPartyLibraries\SDL2_image-2.0.5\include;</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SDL_MAIN_HANDLED;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
