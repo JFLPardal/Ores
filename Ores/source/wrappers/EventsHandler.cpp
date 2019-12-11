@@ -30,8 +30,8 @@ void EventsHandler::ProcessEvents(Game& game)
 		{
 			if (TryToSpawnColumns(game))
 			{
-				m_ColumnSpawnTimer->Update();
-				//UpdateColumnSpawnTimer();
+				m_currentSecondsBetweenColumnsSpawns = GetNextColumnSpawnTimer();
+				m_ColumnSpawnTimer->ChangeSecondsBetweenCalls(m_currentSecondsBetweenColumnsSpawns);
 			}
 		}
 	}
@@ -48,18 +48,19 @@ void EventsHandler::PlayerClickedWindow(SDL_Event& event, IGrid& grid)
 
 bool EventsHandler::TryToSpawnColumns(Game& game)
 {
+	bool spawnedColumn = false;
 	if (game.Grid().CurrentNumberOfColumns() < Consts::NUM_MAX_COLUMNS)
 	{
 		SpawnColumn(game.Grid());
+		spawnedColumn = true;
 	}
 	else
 	{
 		// TODO change this to game over and put this function inside of that game over
 		RestartGame(game);
-		return false;
 	}
 	UpdateGrid(game.Grid());
-	return true;
+	return spawnedColumn;
 }
 
 void EventsHandler::SpawnColumn(IGrid& grid)
@@ -81,6 +82,7 @@ void EventsHandler::UpdateGrid(IGrid& grid)
 
 void EventsHandler::InitTimer(float secondsBetweenColumnsSpawns) 
 {
+	m_currentSecondsBetweenColumnsSpawns = secondsBetweenColumnsSpawns;
 	m_ColumnSpawnTimer->Init(secondsBetweenColumnsSpawns, PushSpawnColumnEvent);
 }
 

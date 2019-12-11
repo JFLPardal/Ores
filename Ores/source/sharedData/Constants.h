@@ -59,6 +59,9 @@ namespace Consts
 	extern const float SEC_BETWEEN_COLUMN_SPAWNS;
 	extern const float MIN_SEC_BETWEEN_COLUMN_SPAWNS;
 	extern const float DECREMENT_COLUMN_SPAWN_TIMER_SECS;
+
+	// 
+	extern const float USE_ALREADY_SET_SECS;
 }
 
 

@@ -57,7 +57,10 @@ namespace Consts
 	
 	// delays (all in s)
 	const float SEC_BETWEEN_COLUMN_SPAWNS = 4;
-	const float MIN_SEC_BETWEEN_COLUMN_SPAWNS = 4;
-	const float DECREMENT_COLUMN_SPAWN_TIMER_SECS = .5f;
+	const float MIN_SEC_BETWEEN_COLUMN_SPAWNS = 1;
+	const float DECREMENT_COLUMN_SPAWN_TIMER_SECS = .5f; 
+	
+	//
+	const float USE_ALREADY_SET_SECS = -1;
 }
 	

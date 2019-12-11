@@ -1,9 +1,15 @@
 #pragma once
 
+#include "Constants.h"
+
 class ITimer
 {
 public:
-	virtual void Init(float secondsToCallFunction, SDL_TimerCallback functionToCall) = 0;
-	virtual void Update() = 0;
+	virtual void Init(float secondsBetweenCalls, SDL_TimerCallback functionToCall) = 0;
+	virtual void ChangeSecondsBetweenCalls(float newSecondsBetweenCalls) = 0;
 	virtual void Remove() = 0;
+protected:
+	SDL_TimerCallback m_functionToCall;
+	float m_timerID;
+	float m_secondsBetweenCalls;
 };

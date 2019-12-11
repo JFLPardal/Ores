@@ -8,12 +8,8 @@ public:
 	TimerWithFillBar() = default;
 	~TimerWithFillBar() = default;
 
-	void Init(float secondsToCallFunction, SDL_TimerCallback functionToCall) override;
-	void Update() override;
+	void Init(float secondsBetweenCalls, SDL_TimerCallback functionToCall) override;
+	void ChangeSecondsBetweenCalls(float newSecondsBetweenCalls) override;
 	void Remove() override;
-private:
-	SDL_TimerID m_timerID;
-	SDL_TimerCallback m_functionToCall;
-	float m_secondsBetweenCalls;
 };
 

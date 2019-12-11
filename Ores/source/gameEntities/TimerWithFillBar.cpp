@@ -1,19 +1,20 @@
 #include "pch.h"
 #include "TimerWithFillBar.h"
 
-void TimerWithFillBar::Init(float secondsToCallFunction, SDL_TimerCallback functionToCall)
+void TimerWithFillBar::Init(float secondsBetweenCalls, SDL_TimerCallback functionToCall)
 {
 	int s = 0;
 	m_functionToCall = functionToCall;
-	m_secondsBetweenCalls = secondsToCallFunction;
-	m_timerID = SDL_AddTimer(secondsToCallFunction * 1000, functionToCall, &s);
+	m_secondsBetweenCalls = secondsBetweenCalls;
+	m_timerID = SDL_AddTimer(secondsBetweenCalls * 1000, functionToCall, &s);
 }
 
-void TimerWithFillBar::Update()
+void TimerWithFillBar::ChangeSecondsBetweenCalls(float newSecondsBetweenCalls)
 {
 	Remove();
 	int s = 0;
-	m_timerID = SDL_AddTimer(m_secondsBetweenCalls * 1000, m_functionToCall, &s);
+	m_secondsBetweenCalls = newSecondsBetweenCalls;
+	m_timerID = SDL_AddTimer(newSecondsBetweenCalls * 1000, m_functionToCall, &s);
 }
 
 void TimerWithFillBar::Remove()
