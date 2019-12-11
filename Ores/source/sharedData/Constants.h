@@ -55,8 +55,10 @@ namespace Consts
 	// directions
 	extern const unsigned int NUM_DIRECTIONS;
 
-	// delays (all in ms)
-	extern const unsigned int MS_BETWEEN_COLUMN_SPAWNS;
+	// delays (all in s)
+	extern const float SEC_BETWEEN_COLUMN_SPAWNS;
+	extern const float MIN_SEC_BETWEEN_COLUMN_SPAWNS;
+	extern const float DECREMENT_COLUMN_SPAWN_TIMER_SECS;
 }
 
 

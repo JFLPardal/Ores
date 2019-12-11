@@ -23,7 +23,7 @@ void Game::InitGame()
 {
 	m_grid->Init();
 	InitGameObjects();
-	m_eventsHandler->InitTimer();
+	m_eventsHandler->InitTimer(Consts::SEC_BETWEEN_COLUMN_SPAWNS);
 	ParticleSystemManager::Init();
 }
 

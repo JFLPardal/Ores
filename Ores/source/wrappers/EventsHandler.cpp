@@ -28,7 +28,10 @@ void EventsHandler::ProcessEvents(Game& game)
 		}
 		if (event.type == SDL_USEREVENT && event.user.code == UserEvent::SpawnColumn)
 		{
-			TryToSpawnColumns(game);
+			if (TryToSpawnColumns(game))
+			{
+				UpdateColumnSpawnTimer();
+			}
 		}
 	}
 }
@@ -42,7 +45,7 @@ void EventsHandler::PlayerClickedWindow(SDL_Event& event, IGrid& grid)
 	m_clickEvent->PlayerClickedWindow(event, grid);
 }
 
-void EventsHandler::TryToSpawnColumns(Game& game)
+bool EventsHandler::TryToSpawnColumns(Game& game)
 {
 	if (game.Grid().CurrentNumberOfColumns() < Consts::NUM_MAX_COLUMNS)
 	{
@@ -50,9 +53,12 @@ void EventsHandler::TryToSpawnColumns(Game& game)
 	}
 	else
 	{
+		// TODO change this to game over and put this function inside of that game over
 		RestartGame(game);
+		return false;
 	}
 	UpdateGrid(game.Grid());
+	return true;
 }
 
 void EventsHandler::SpawnColumn(IGrid& grid)
@@ -72,10 +78,27 @@ void EventsHandler::UpdateGrid(IGrid& grid)
 	grid.UpdatePositionOfBricks();
 }
 
-void EventsHandler::InitTimer()
+void EventsHandler::InitTimer(float secondsBetweenColumnsSpawns)
 {
 	int s = 0;
-	m_spawnNewColumnTimer = SDL_AddTimer(Consts::MS_BETWEEN_COLUMN_SPAWNS, PushSpawnColumnEvent, &s);
+	m_currentSecondsBetweenColumnsSpawns = secondsBetweenColumnsSpawns;
+	m_spawnNewColumnTimer = SDL_AddTimer(m_currentSecondsBetweenColumnsSpawns * 1000, PushSpawnColumnEvent, &s);
+}
+
+void EventsHandler::UpdateColumnSpawnTimer()
+{
+	int s = 0;
+	SDL_RemoveTimer(m_spawnNewColumnTimer); // make sure the previous assigned function(if any) is replaced with new timer instead of adding to it
+	m_currentSecondsBetweenColumnsSpawns = GetNextColumnSpawnTimer();
+	m_spawnNewColumnTimer = SDL_AddTimer(m_currentSecondsBetweenColumnsSpawns * 1000, PushSpawnColumnEvent, &s);
+}
+
+float EventsHandler::GetNextColumnSpawnTimer() const
+{
+	return std::max(
+			m_currentSecondsBetweenColumnsSpawns - Consts::DECREMENT_COLUMN_SPAWN_TIMER_SECS,
+			Consts::MIN_SEC_BETWEEN_COLUMN_SPAWNS
+	);
 }
 
 Uint32 PushSpawnColumnEvent(Uint32 msBetweenSpawns, void* params)
