@@ -5,6 +5,7 @@ namespace Consts
 	// frame rate
 	extern const int INTENDED_FPS;
 	extern const int INTENDED_FRAME_DURATION;
+	extern const float FRAME_DURATION_IN_MS;
 
 	// window
 	extern const int WINDOW_HEIGHT;

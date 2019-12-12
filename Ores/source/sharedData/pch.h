@@ -18,3 +18,4 @@
 
 // functionality
 #include <algorithm>
+#include <cmath>

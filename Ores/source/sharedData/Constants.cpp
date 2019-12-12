@@ -5,6 +5,7 @@ namespace Consts
 	// frame rate
 	const int INTENDED_FPS = 60;
 	const int INTENDED_FRAME_DURATION = 1000 / INTENDED_FPS;
+	const float FRAME_DURATION_IN_MS = .0166f; // 1 / 60
 
 	// window
 	const int WINDOW_HEIGHT = 480;

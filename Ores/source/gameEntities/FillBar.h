@@ -7,15 +7,16 @@ public:
 	FillBar(int screenCoordX, int screenCoordY);
 	~FillBar();
 
-	void MaxCapacity(float maxCapacity) override;
+	void MaxCapacity(float maxCapacityInUnits) override;
 	void Update() override;
 	void Draw() override;
-	void Fill() override;
 private:
-	int GetCapacityAsPercentage() const;
+	// The value returned is a float between 0 and 1
+	float GetCapacityAsPercentagePoint() const;
 private:
-	uint m_maxCapacity;
-	float m_currentCapacity;
-	Uint32 m_lastGameTick;
-	const float FRAME_DURATION = Consts::INTENDED_FRAME_DURATION;
+	uint m_maxCapacityWidth;
+	Uint32 m_lastGameTick = 0;
+	float m_timeRemaining = -1;
+	float m_timeToDepleteBar;
+	const float MS_TO_S = 1.f / 1000;
 };

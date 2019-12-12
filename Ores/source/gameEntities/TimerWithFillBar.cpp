@@ -23,7 +23,6 @@ void TimerWithFillBar::ChangeSecondsBetweenCalls(float newSecondsBetweenCalls)
 	UpdateBarsMaxCapacity(newSecondsBetweenCalls);
 	m_secondsBetweenCalls = newSecondsBetweenCalls;
 	m_timerID = SDL_AddTimer(newSecondsBetweenCalls * 1000, m_functionToCall, &s);
-	m_TimerAsPercentageBar->Fill();
 }
 
 void TimerWithFillBar::Clear()

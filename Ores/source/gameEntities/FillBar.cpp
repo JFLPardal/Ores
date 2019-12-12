@@ -6,22 +6,21 @@ FillBar::FillBar(int screenCoordX, int screenCoordY)
 	m_lastGameTick = SDL_GetTicks();
 	m_background = new Bar(screenCoordX, screenCoordY);
 	m_foreground = new Bar(screenCoordX, screenCoordY);
-	auto bar = m_background->GetTransform();
-	printf("bar created on x: %d, y:%d with w: %d and h: %d", bar.X(), bar.Y(), bar.Width(), bar.Height());
 }
 
-void FillBar::MaxCapacity(float maxCapacity)
+void FillBar::MaxCapacity(float maxCapacityInUnits)
 {
-	m_maxCapacity = Consts::UI_BAR_W;
-	m_currentCapacity = m_maxCapacity;
-	m_foreground->SetMaxCapacity((int)maxCapacity);
+	m_timeRemaining = maxCapacityInUnits;
+	m_timeToDepleteBar = maxCapacityInUnits;
+	m_maxCapacityWidth = Consts::UI_BAR_W;
+	m_foreground->SetMaxCapacity(Consts::UI_BAR_W);
 }
 
 void FillBar::Update()
 {
-	m_currentCapacity = m_currentCapacity - (SDL_GetTicks() - m_lastGameTick)  * FRAME_DURATION;
-	int currentCapacityHasPercentage = GetCapacityAsPercentage();
-	m_foreground->SetMaxCapacity(currentCapacityHasPercentage);
+	m_timeRemaining = m_timeRemaining - (SDL_GetTicks() - m_lastGameTick) * MS_TO_S;
+	float currentCapacityAsPercentage = GetCapacityAsPercentagePoint();
+	m_foreground->SetMaxCapacity((int)(m_maxCapacityWidth * currentCapacityAsPercentage));
 	m_lastGameTick = SDL_GetTicks();
 }
 
@@ -31,16 +30,9 @@ void FillBar::Draw()
 	TextureManager::Draw(m_foreground);
 }
 
-void FillBar::Fill()
+float FillBar::GetCapacityAsPercentagePoint() const
 {
-
-}
-
-int FillBar::GetCapacityAsPercentage() const
-{
-	int fillAsPercentage = std::floor(m_currentCapacity * 100 / m_maxCapacity);
-	fillAsPercentage = std::clamp(fillAsPercentage, 0, 100);
-	printf("%d\n", fillAsPercentage);
+	float fillAsPercentage = ((float)m_timeRemaining * 100 / m_timeToDepleteBar) * .01f;
 	return fillAsPercentage;
 }
 
