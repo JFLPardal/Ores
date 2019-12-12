@@ -15,3 +15,6 @@
 #include <set>
 #include <queue>
 #include <string>
+
+// functionality
+#include <algorithm>

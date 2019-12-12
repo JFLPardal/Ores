@@ -26,6 +26,11 @@ void Transform::UpdatePosition(int x, int y)
 	SetY(y);
 }
 
+void Transform::UpdateW(int newW)
+{
+	m_rect.w = newW;
+}
+
 void Transform::SetRect(int x, int y, uint w, uint h)
 {
 	m_rect.x = x;

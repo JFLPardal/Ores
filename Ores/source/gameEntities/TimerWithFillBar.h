@@ -15,6 +15,8 @@ public:
 	void Clear() override;
 	IUIBar* GetUIBar() const;// return reference to vvv IUIBar so that Game.cpp can call Draw on it
 private:
+	void UpdateBarsMaxCapacity(float newMaxCapacity) const;
+private:
 	std::shared_ptr<IUIBar> m_TimerAsPercentageBar;
 };
 

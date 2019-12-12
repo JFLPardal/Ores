@@ -13,4 +13,5 @@ struct Bar
 	{}
 
 	Transform GetTransform() const { return m_position; }
+	void SetMaxCapacity(int newMaxCapacity) { m_position.UpdateW(newMaxCapacity); }
 };

@@ -83,6 +83,7 @@ void Game::Draw()
 void Game::Update() 
 {
 	ParticleSystemManager::Update();
+	dynamic_cast<TimerWithFillBar*>(m_ColumnSpawnTimer.get())->GetUIBar()->Update();	// TODO substitute this with array of UI elements
 	m_grid->Update();
 }
 

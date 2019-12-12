@@ -18,6 +18,7 @@ public:
 	int Y() const { return m_rect.y; }
 	SDL_Rect Rect() const { return m_rect; }
 	void UpdatePosition(int x, int y);
+	void UpdateW(int newW);
 	bool IntersectWithPoint(int x, int y);
 private:
 	void SetX(int x) { m_rect.x = x; }

@@ -10,6 +10,7 @@ TimerWithFillBar::TimerWithFillBar()
 void TimerWithFillBar::Init(float secondsBetweenCalls, SDL_TimerCallback functionToCall)
 {
 	int s = 0;
+	UpdateBarsMaxCapacity(secondsBetweenCalls);
 	m_functionToCall = functionToCall;
 	m_secondsBetweenCalls = secondsBetweenCalls;
 	m_timerID = SDL_AddTimer(secondsBetweenCalls * 1000, functionToCall, &s);
@@ -19,6 +20,7 @@ void TimerWithFillBar::ChangeSecondsBetweenCalls(float newSecondsBetweenCalls)
 {
 	Clear();
 	int s = 0;
+	UpdateBarsMaxCapacity(newSecondsBetweenCalls);
 	m_secondsBetweenCalls = newSecondsBetweenCalls;
 	m_timerID = SDL_AddTimer(newSecondsBetweenCalls * 1000, m_functionToCall, &s);
 	m_TimerAsPercentageBar->Fill();
@@ -32,4 +34,9 @@ void TimerWithFillBar::Clear()
 IUIBar* TimerWithFillBar::GetUIBar() const
 {
 	return m_TimerAsPercentageBar.get();
+}
+
+void TimerWithFillBar::UpdateBarsMaxCapacity(float newMaxCapacity) const
+{
+	m_TimerAsPercentageBar->MaxCapacity(newMaxCapacity);
 }
