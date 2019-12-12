@@ -14,7 +14,6 @@ public:
 	EventsHandler();
 
 	void ProcessEvents(Game& game);
-	void InitTimer(float secondsBetweenColumnsSpawns);
 	void RestartGame(Game& game);
 	void QuitGame(Game& game);
 private:
@@ -23,9 +22,7 @@ private:
 	
 	void SpawnColumn(IGrid& grid);
 	void UpdateGrid(IGrid& grid);
-	float GetNextColumnSpawnTimer() const;
 private:
-	uPtr<ITimer> m_ColumnSpawnTimer;
 	uPtr<IClickEvent> m_clickEvent;
-	float m_currentSecondsBetweenColumnsSpawns = -1; // TODO remove from this class
+	
 };

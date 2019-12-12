@@ -9,6 +9,7 @@ class IUIBar
 {
 public:
 	virtual void Fill() = 0;
+	virtual void Draw() = 0;
 protected:
 	Bar* m_background;
 	Bar* m_foreground;

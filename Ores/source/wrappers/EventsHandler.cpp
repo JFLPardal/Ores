@@ -9,7 +9,7 @@
 #include "TimerWithFillBar.h"
 
 EventsHandler::EventsHandler()
-	:m_clickEvent(std::make_unique<ClickWindow>()), m_ColumnSpawnTimer(std::make_unique<TimerWithFillBar>())
+	:m_clickEvent(std::make_unique<ClickWindow>())
 {
 }
 
@@ -30,8 +30,7 @@ void EventsHandler::ProcessEvents(Game& game)
 		{
 			if (TryToSpawnColumns(game))
 			{
-				m_currentSecondsBetweenColumnsSpawns = GetNextColumnSpawnTimer();
-				m_ColumnSpawnTimer->ChangeSecondsBetweenCalls(m_currentSecondsBetweenColumnsSpawns);
+				game.ChangeSecondsBetweenColumnSpawns();
 			}
 		}
 	}
@@ -70,7 +69,6 @@ void EventsHandler::SpawnColumn(IGrid& grid)
 
 void EventsHandler::RestartGame(Game& game)
 {
-	m_ColumnSpawnTimer->Remove();
 	game.Grid().ClearGrid();
 	game.InitGame();
 }
@@ -78,20 +76,6 @@ void EventsHandler::RestartGame(Game& game)
 void EventsHandler::UpdateGrid(IGrid& grid)
 {
 	grid.UpdatePositionOfBricks();
-}
-
-void EventsHandler::InitTimer(float secondsBetweenColumnsSpawns) 
-{
-	m_currentSecondsBetweenColumnsSpawns = secondsBetweenColumnsSpawns;
-	m_ColumnSpawnTimer->Init(secondsBetweenColumnsSpawns, PushSpawnColumnEvent);
-}
-
-float EventsHandler::GetNextColumnSpawnTimer() const
-{
-	return std::max(
-			m_currentSecondsBetweenColumnsSpawns - Consts::DECREMENT_COLUMN_SPAWN_TIMER_SECS,
-			Consts::MIN_SEC_BETWEEN_COLUMN_SPAWNS
-	);
 }
 
 Uint32 PushSpawnColumnEvent(Uint32 msBetweenSpawns, void* params)

@@ -8,11 +8,13 @@
 #include "MatrixGrid.h"
 #include "EventsHandler.h"
 #include "ParticleSystemManager.h"
+#include "TimerWithFillBar.h"
 
 Game::Game()
 	:m_window(nullptr, SDL_DestroyWindow),
 	 m_grid(std::make_unique<MatrixGrid>()),
-	m_eventsHandler(std::make_unique<EventsHandler>())
+	m_eventsHandler(std::make_unique<EventsHandler>()),
+	m_ColumnSpawnTimer(std::make_unique<TimerWithFillBar>())
 {
 	CreateWindow();
 	TextureManager::InitTextureManager(m_window.get());
@@ -23,7 +25,8 @@ void Game::InitGame()
 {
 	m_grid->Init();
 	InitGameObjects();
-	m_eventsHandler->InitTimer(Consts::SEC_BETWEEN_COLUMN_SPAWNS);
+	m_ColumnSpawnTimer->Clear();
+	InitTimer(Consts::SEC_BETWEEN_COLUMN_SPAWNS);
 	ParticleSystemManager::Init();
 }
 
@@ -46,13 +49,33 @@ void Game::InitGameObjects()
 	m_grid->InitBricks();
 }
 
+// TODO functions in this block should be moved to a class of their own******************
+void Game::InitTimer(float secondsBetweenColumnsSpawns)
+{
+	m_currentSecondsBetweenColumnsSpawns = secondsBetweenColumnsSpawns;
+	m_ColumnSpawnTimer->Init(m_currentSecondsBetweenColumnsSpawns, PushSpawnColumnEvent);
+}
 
+void Game::ChangeSecondsBetweenColumnSpawns()
+{
+	m_currentSecondsBetweenColumnsSpawns = GetNextColumnSpawnTimer();
+	m_ColumnSpawnTimer->ChangeSecondsBetweenCalls(m_currentSecondsBetweenColumnsSpawns);
+}
+
+float Game::GetNextColumnSpawnTimer() const
+{
+	return std::max(
+		m_currentSecondsBetweenColumnsSpawns - Consts::DECREMENT_COLUMN_SPAWN_TIMER_SECS,
+		Consts::MIN_SEC_BETWEEN_COLUMN_SPAWNS
+	);
+}
+//***************************************************************************************
 void Game::Draw()	
 {
 	TextureManager::ClearRender();
-
 	m_warningArea.Draw();
 	m_grid->Draw();
+	dynamic_cast<TimerWithFillBar*>(m_ColumnSpawnTimer.get())->GetUIBar()->Draw();	// TODO substitute this with array of UI elements
 	ParticleSystemManager::Draw();
 	TextureManager::PresentRender();
 }

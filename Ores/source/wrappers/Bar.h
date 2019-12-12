@@ -9,7 +9,7 @@ struct Bar
 	Transform m_position;
 	
 	Bar(int x, int y)
-		:m_position(Transform(x, y, Consts::UI_BAR_H, Consts::UI_BAR_H))
+		:m_position(Transform(x, y, Consts::UI_BAR_W, Consts::UI_BAR_H))
 	{}
 
 	Transform GetTransform() const { return m_position; }

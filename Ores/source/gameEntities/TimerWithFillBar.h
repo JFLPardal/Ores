@@ -12,8 +12,9 @@ public:
 
 	void Init(float secondsBetweenCalls, SDL_TimerCallback functionToCall) override;
 	void ChangeSecondsBetweenCalls(float newSecondsBetweenCalls) override;
-	void Remove() override;
+	void Clear() override;
+	IUIBar* GetUIBar() const;// return reference to vvv IUIBar so that Game.cpp can call Draw on it
 private:
-	uPtr<IUIBar> m_TimerAsPercentageBar;
+	std::shared_ptr<IUIBar> m_TimerAsPercentageBar;
 };
 

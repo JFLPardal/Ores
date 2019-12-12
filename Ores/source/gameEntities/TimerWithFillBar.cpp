@@ -3,7 +3,7 @@
 #include "FillBar.h"
 
 TimerWithFillBar::TimerWithFillBar()
-	:m_TimerAsPercentageBar(std::make_unique<FillBar>(Consts::UI_BAR_X, Consts::UI_BAR_Y))
+	:m_TimerAsPercentageBar(std::make_shared<FillBar>(Consts::UI_BAR_X, Consts::UI_BAR_Y))
 {
 }
 
@@ -17,14 +17,19 @@ void TimerWithFillBar::Init(float secondsBetweenCalls, SDL_TimerCallback functio
 
 void TimerWithFillBar::ChangeSecondsBetweenCalls(float newSecondsBetweenCalls)
 {
-	Remove();
+	Clear();
 	int s = 0;
 	m_secondsBetweenCalls = newSecondsBetweenCalls;
 	m_timerID = SDL_AddTimer(newSecondsBetweenCalls * 1000, m_functionToCall, &s);
 	m_TimerAsPercentageBar->Fill();
 }
 
-void TimerWithFillBar::Remove()
+void TimerWithFillBar::Clear()
 {
 	SDL_RemoveTimer(m_timerID);
+}
+
+IUIBar* TimerWithFillBar::GetUIBar() const
+{
+	return m_TimerAsPercentageBar.get();
 }

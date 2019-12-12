@@ -47,12 +47,12 @@ void TextureManager::Draw(const GameObject* objectToDraw)
 
 void TextureManager::Draw(const Particle* objectToDraw)
 {
-	SDL_RenderCopy(m_renderer.get(), m_brickColorToTexture[Grey].get(), NULL, &objectToDraw->GetTransform().Rect());
+	SDL_RenderCopy(m_renderer.get(), m_particleTexture.get(), NULL, &objectToDraw->GetTransform().Rect());
 }
 
 void TextureManager::Draw(const Bar* objectToDraw)
 {
-	SDL_RenderCopy(m_renderer.get(), m_particleTexture.get(), NULL, &objectToDraw->GetTransform().Rect());
+	SDL_RenderCopy(m_renderer.get(), m_brickColorToTexture[Grey].get(), NULL, &objectToDraw->GetTransform().Rect());
 }
 
 void TextureManager::CreateRenderer(SDL_Window* window)
