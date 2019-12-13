@@ -8,6 +8,7 @@
 #include "Bar.h"
 
 std::map<BrickColor, std::shared_ptr<SDL_Texture>> TextureManager::m_brickColorToTexture;
+std::array<std::shared_ptr<SDL_Texture>, 2> TextureManager::m_UIBarToTexture;
 std::unique_ptr<SDL_Renderer, decltype(&SDL_DestroyRenderer)> TextureManager::m_renderer{ nullptr, SDL_DestroyRenderer };
 std::shared_ptr<SDL_Texture> TextureManager::m_particleTexture;
 
@@ -22,6 +23,8 @@ void TextureManager::InitTextureManager(SDL_Window* window)
 	LoadTexture(Consts::greyOre, BrickColor::Grey);
 	LoadTexture(Consts::yellowOre, BrickColor::Yellow);
 	LoadTexture(Consts::brickParticle);
+	LoadTexture(Consts::backgroundBar, true);
+	LoadTexture(Consts::foregroundBar, false);
 }
 
 
@@ -50,9 +53,9 @@ void TextureManager::Draw(const Particle* objectToDraw)
 	SDL_RenderCopy(m_renderer.get(), m_particleTexture.get(), NULL, &objectToDraw->GetTransform().Rect());
 }
 
-void TextureManager::Draw(const Bar* objectToDraw)
+void TextureManager::Draw(const Bar* barToDraw)
 {
-	SDL_RenderCopy(m_renderer.get(), m_brickColorToTexture[Grey].get(), NULL, &objectToDraw->GetTransform().Rect());
+	SDL_RenderCopy(m_renderer.get(), m_UIBarToTexture[barToDraw->IsBackgroundBar()].get(), NULL, &barToDraw->GetTransform().Rect());
 }
 
 void TextureManager::CreateRenderer(SDL_Window* window)
@@ -77,6 +80,23 @@ void TextureManager::LoadTexture(const char* texturePath)
 											(SDL_CreateTextureFromSurface(m_renderer.get(), surface.get()),
 											SDL_DestroyTexture);
 		m_particleTexture = std::move(texture);
+	}
+	else
+	{
+		printf("Image %s not loaded. SDL_ERROR: %s", texturePath, SDL_GetError());
+	}
+}
+
+// used to load UIBars' textures
+void TextureManager::LoadTexture(const char* texturePath, bool isBackgroundBar)
+{
+	std::unique_ptr<SDL_Surface, decltype(&SDL_FreeSurface)> surface{ IMG_Load(texturePath), SDL_FreeSurface };
+	if (surface != nullptr)
+	{
+		std::unique_ptr<SDL_Texture, decltype(&SDL_DestroyTexture)> texture
+											(SDL_CreateTextureFromSurface(m_renderer.get(), surface.get()),
+											SDL_DestroyTexture);
+		m_UIBarToTexture[isBackgroundBar] = std::move(texture);
 	}
 	else
 	{

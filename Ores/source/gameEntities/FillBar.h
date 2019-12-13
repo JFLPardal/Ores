@@ -10,6 +10,7 @@ public:
 	void MaxCapacity(float maxCapacityInUnits) override;
 	void Update() override;
 	void Draw() override;
+	bool IsBackgroundBar() {}
 private:
 	// The value returned is a float between 0 and 1
 	float GetCapacityAsPercentagePoint() const;

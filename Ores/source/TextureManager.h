@@ -35,9 +35,11 @@ private:
 	static void CreateRenderer(SDL_Window* window);
 	static void LoadTexture(const char* texturePath, BrickColor color);
 	static void LoadTexture(const char* texturePath);
+	static void LoadTexture(const char* texturePath, bool isBackgroundBar);
 	static void AddSpriteToMapOfSprites(const BrickColor color, std::unique_ptr<SDL_Surface, decltype(&SDL_FreeSurface)> surface);
 private:
 	static std::map<BrickColor, std::shared_ptr<SDL_Texture>> m_brickColorToTexture;
+	static std::array<std::shared_ptr<SDL_Texture>, 2> m_UIBarToTexture;
 	static std::unique_ptr<SDL_Renderer, decltype(&SDL_DestroyRenderer)> m_renderer;
 	static std::shared_ptr<SDL_Texture> m_particleTexture;
 	//static SDL_Rect m_rect;

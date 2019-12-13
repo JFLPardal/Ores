@@ -18,7 +18,11 @@ namespace Consts
 	extern const char* greenOre;
 	extern const char* greyOre;
 	extern const char* yellowOre;
+
 	extern const char* brickParticle;
+
+	extern const char* backgroundBar;
+	extern const char* foregroundBar;
 
 	// 
 	extern const unsigned int NUM_DIF_BRICKS;

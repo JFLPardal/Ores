@@ -10,6 +10,7 @@
 // data structure
 #include <memory>
 #include <vector>
+#include <array>
 #include <map>
 #include <utility>
 #include <set>

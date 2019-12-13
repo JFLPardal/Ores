@@ -4,8 +4,8 @@
 FillBar::FillBar(int screenCoordX, int screenCoordY)
 {
 	m_lastGameTick = SDL_GetTicks();
-	m_background = new Bar(screenCoordX, screenCoordY);
-	m_foreground = new Bar(screenCoordX, screenCoordY);
+	m_background = new Bar(screenCoordX, screenCoordY, true);
+	m_foreground = new Bar(screenCoordX, screenCoordY, false);
 }
 
 void FillBar::MaxCapacity(float maxCapacityInUnits)

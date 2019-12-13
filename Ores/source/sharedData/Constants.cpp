@@ -13,12 +13,16 @@ namespace Consts
 	const char* WINDOW_NAME = "Ores by Joao Pardal";
 
 	// sprites
-	const char* blueOre = "../Ores/assets/sprites/ores/blue_square.png";
-	const char* redOre = "../Ores/assets/sprites/ores/red_square.png";
-	const char* greenOre = "../Ores/assets/sprites/ores/green_square.png";
-	const char* greyOre = "../Ores/assets/sprites/ores/grey_square.png";
+	const char* blueOre =	"../Ores/assets/sprites/ores/blue_square.png";
+	const char* redOre =	"../Ores/assets/sprites/ores/red_square.png";
+	const char* greenOre =	"../Ores/assets/sprites/ores/green_square.png";
+	const char* greyOre =	"../Ores/assets/sprites/ores/grey_square.png";
 	const char* yellowOre = "../Ores/assets/sprites/ores/yellow_square.png";
+	
 	const char* brickParticle = "../Ores/assets/sprites/ores/brick_particle.png";
+
+	extern const char* backgroundBar = "../Ores/assets/sprites/UI/Bars/background2.png";
+	extern const char* foregroundBar = "../Ores/assets/sprites/UI/Bars/foreground.png";
 
 	//
 	const unsigned int NUM_DIF_BRICKS = 5;
@@ -57,7 +61,7 @@ namespace Consts
 	const unsigned int NUM_DIRECTIONS = 4;
 	
 	// delays (all in s)
-	const float SEC_BETWEEN_COLUMN_SPAWNS = 4;
+	const float SEC_BETWEEN_COLUMN_SPAWNS = 10;
 	const float MIN_SEC_BETWEEN_COLUMN_SPAWNS = 1;
 	const float DECREMENT_COLUMN_SPAWN_TIMER_SECS = .5f; 
 	
